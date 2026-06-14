@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(JAVA_HOME=\"D:/WindowsSoftWare/jdk21\" mvn clean compile)"
+    ]
+  }
+}

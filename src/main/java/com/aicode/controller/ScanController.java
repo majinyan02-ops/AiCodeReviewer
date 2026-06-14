@@ -1,8 +1,8 @@
 package com.aicode.controller;
 
 import com.aicode.common.Result;
-import com.aicode.scanner.JavaParserService;
-import com.aicode.scanner.model.ScanContext;
+import com.aicode.parser.JavaParserService;
+import com.aicode.parser.model.ScanContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
