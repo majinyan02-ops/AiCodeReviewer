@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.aicode.parser.JavaParserServiceTest" time="0.031" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.aicode.analysis.ServiceAnalysisServiceTest" time="0.212" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,33 +67,41 @@
     <property name="java.class.version" value="65.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[ai-code-reviewer] "/>
   </properties>
-  <testcase name="parseProject_shouldFindUserControllerWithMethods" classname="com.aicode.parser.JavaParserServiceTest" time="0.02">
-    <system-out><![CDATA[2026-06-15T12:05:42.633+08:00  INFO 27852 --- [ai-code-reviewer] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aicode.parser.JavaParserServiceTest]: JavaParserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-06-15T12:05:42.640+08:00  INFO 27852 --- [ai-code-reviewer] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aicode.AiCodeReviewerApplication for test class com.aicode.parser.JavaParserServiceTest
-2026-06-15T12:05:42.646+08:00  INFO 27852 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : parseProject: 扫描到 7 个 Java 文件
-2026-06-15T12:05:42.656+08:00  INFO 27852 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : parseProject 完成: path=D:/test-project, files=7, classes=5, elapsed=11ms
+  <testcase name="extractFromScanContext_shouldFindAllServices" classname="com.aicode.analysis.ServiceAnalysisServiceTest" time="0.198">
+    <system-out><![CDATA[2026-06-15T12:05:42.419+08:00  INFO 27852 --- [ai-code-reviewer] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aicode.analysis.ServiceAnalysisServiceTest]: ServiceAnalysisServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-15T12:05:42.428+08:00  INFO 27852 --- [ai-code-reviewer] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aicode.AiCodeReviewerApplication for test class com.aicode.analysis.ServiceAnalysisServiceTest
+2026-06-15T12:05:42.434+08:00  INFO 27852 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : 扫描到 7 个 Java 文件
+2026-06-15T12:05:42.574+08:00  INFO 27852 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : 扫描完成: projectId=1, files=7, controllers=1, services=2, mappers=0, entities=2, elapsed=141ms
 ===================================
 扫描路径: D:/test-project
 扫描文件数: 7
-扫描耗时: 11ms
+Service 数: 2
 ===================================
-UserController
-  save()
-  update()
-  delete()
-Order
-User
-OrderServiceImpl
-  create()
-  cancel()
-  query()
-UserServiceImpl
-  save()
-  update()
-  query()
-  delete()
+2026-06-15T12:05:42.617+08:00  INFO 27852 --- [ai-code-reviewer] [           main] c.a.a.s.impl.ServiceAnalysisServiceImpl  : Service 元数据提取: OrderServiceImpl -> 3 个方法 (事务: 1/3, 行数: 10)
+2026-06-15T12:05:42.617+08:00  INFO 27852 --- [ai-code-reviewer] [           main] c.a.a.s.impl.ServiceAnalysisServiceImpl  : Service 元数据提取: UserServiceImpl -> 4 个方法 (事务: 4/4, 行数: 13)
 ===================================
-✅ Task-08 parseProject() 测试通过！
+UserServiceImpl:
+  hasServiceAnnotation: true
+  hasTransactional (class): true
+  totalMethodCount: 4
+  transactionalMethodCount: 4
+  totalLineCount: 13
+  save() transactional=true lines=3 mapperCalls=[userMapper.insert]
+  update() transactional=true lines=3 mapperCalls=[userMapper.update]
+  query() transactional=true lines=4 mapperCalls=[userMapper.select]
+  delete() transactional=true lines=3 mapperCalls=[userMapper.delete]
+===================================
+OrderServiceImpl:
+  hasServiceAnnotation: true
+  hasTransactional (class): false
+  totalMethodCount: 3
+  transactionalMethodCount: 1
+  totalLineCount: 10
+  create() transactional=false lines=3 mapperCalls=[orderMapper.insert]
+  cancel() transactional=true lines=4 mapperCalls=[orderMapper.update]
+  query() transactional=false lines=3 mapperCalls=[orderMapper.select]
+===================================
+✅ Task-10 ServiceAnalysisService 测试通过！
 ]]></system-out>
   </testcase>
 </testsuite>

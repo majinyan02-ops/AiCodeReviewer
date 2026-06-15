@@ -2,13 +2,13 @@
 
 ## 日期
 
-2026-06-15
+2026-06-15 (续)
 
 ------
 
 ## 今日目标
 
-完成 Task-09 Controller 元数据提取。
+完成 Task-09 Controller 元数据提取、Task-10 Service 元数据提取。
 
 ------
 
@@ -16,24 +16,55 @@
 
 ### Task-09 Controller 元数据提取
 
-完成内容：
+新增文件：
 
-- 新增 `EndpointInfo` 模型 — HTTP 方法、URL 路径、方法名、返回类型、行号
-- 新增 `ControllerMetadata` 模型 — 类名、全限定名、basePath、端点列表
-- 新增 `ControllerAnalysisService` 接口 — extractFromScanContext / extractFromProjectCodeModel
-- 新增 `ControllerAnalysisServiceImpl` 实现
-  - 从类级 `@RequestMapping` 提取 basePath
-  - 识别 `@GetMapping` / `@PostMapping` / `@PutMapping` / `@DeleteMapping` / `@RequestMapping`
-  - 解析 `@RequestMapping.method` 字段
-  - 拼接 basePath + methodPath（斜杠标准化）
-- 新增 `ControllerAnalysisServiceTest` 测试
+- `analysis/model/EndpointInfo.java`
+- `analysis/model/ControllerMetadata.java`
+- `analysis/service/ControllerAnalysisService.java`
+- `analysis/service/impl/ControllerAnalysisServiceImpl.java`
 
 成果：
 
 ```
-GET  /api/users/save   -> save()   (line 9)
-PUT  /api/users/update -> update() (line 14)
-DELETE /api/users/{id} -> delete() (line 19)
+GET    /api/users/save   -> save()   (line 9)
+PUT    /api/users/update -> update() (line 14)
+DELETE /api/users/{id}   -> delete() (line 19)
+```
+
+------
+
+### Task-10 Service 元数据提取
+
+新增文件：
+
+- `analysis/model/ServiceMethodInfo.java`
+- `analysis/model/ServiceMetadata.java`
+- `analysis/service/ServiceAnalysisService.java`
+- `analysis/service/impl/ServiceAnalysisServiceImpl.java`
+
+成果：
+
+```
+UserServiceImpl:
+  hasServiceAnnotation: true
+  hasTransactional (class): true
+  totalMethodCount: 4
+  transactionalMethodCount: 4   ← 类级事务，所有方法都是事务方法
+  totalLineCount: 14
+  save()  transactional=true  mapperCalls=[userMapper.insert]
+  update() transactional=true  mapperCalls=[userMapper.update]
+  query()  transactional=true  mapperCalls=[userMapper.select]
+  delete() transactional=true  mapperCalls=[userMapper.delete]
+
+OrderServiceImpl:
+  hasServiceAnnotation: true
+  hasTransactional (class): false
+  totalMethodCount: 3
+  transactionalMethodCount: 1   ← 仅 cancel() 方法有 @Transactional
+  totalLineCount: 10
+  create() transactional=false mapperCalls=[orderMapper.insert]
+  cancel() transactional=true  mapperCalls=[orderMapper.update]
+  query()  transactional=false mapperCalls=[orderMapper.select]
 ```
 
 3 个测试全部通过（含 Task-08 回归测试）。
@@ -49,9 +80,10 @@ JavaParser (Task-08)
     ↓
 ProjectCodeModel / ScanContext
     ↓
-ControllerAnalysisService (Task-09) ← 当前
-    ↓
-ControllerMetadata
+┌─────────────────────────────────┐
+│ ControllerAnalysisService (T09) │ → ControllerMetadata
+│ ServiceAnalysisService (T10)    │ → ServiceMetadata
+└─────────────────────────────────┘
     ↓
 CallGraph (Task-11, 待开发)
     ↓
@@ -60,38 +92,26 @@ Rule Engine (Task-12+, 待开发)
 
 ------
 
-## 文件清单
+## 目录结构
 
-新增文件：
-
-- `src/main/java/com/aicode/analysis/model/EndpointInfo.java`
-- `src/main/java/com/aicode/analysis/model/ControllerMetadata.java`
-- `src/main/java/com/aicode/analysis/service/ControllerAnalysisService.java`
-- `src/main/java/com/aicode/analysis/service/impl/ControllerAnalysisServiceImpl.java`
-- `src/test/java/com/aicode/analysis/ControllerAnalysisServiceTest.java`
-
-无现有文件修改。
-
-------
-
-## 测试项目
-
-创建 `D:/test-project` 测试项目：
-
-- `UserController` — 3 个端点（GET/PUT/DELETE）
-- `UserServiceImpl` — 含 @Transactional
-- `UserMapper` — 接口
-- `User` — 实体
+```
+src/main/java/com/aicode/analysis/
+├── model/
+│   ├── ControllerMetadata.java
+│   ├── EndpointInfo.java
+│   ├── ServiceMetadata.java
+│   └── ServiceMethodInfo.java
+├── service/
+│   ├── ControllerAnalysisService.java
+│   ├── ServiceAnalysisService.java
+│   └── impl/
+│       ├── ControllerAnalysisServiceImpl.java
+│       └── ServiceAnalysisServiceImpl.java
+```
 
 ------
 
 ## 明日计划
-
-Task-10 Service 分析
-
-- ServiceMetadata 模型
-- ServiceMethodInfo 模型
-- ServiceAnalysisService
 
 Task-11 Call Graph 调用链分析
 

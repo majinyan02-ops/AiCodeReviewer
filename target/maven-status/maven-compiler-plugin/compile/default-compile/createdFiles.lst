@@ -10,6 +10,7 @@ com\aicode\dto\GitSyncResponse.class
 com\aicode\config\SecurityConfig.class
 com\aicode\security\handler\AccessDeniedHandlerImpl.class
 com\aicode\parser\model\ScannedClass.class
+com\aicode\analysis\service\impl\ServiceAnalysisServiceImpl.class
 com\aicode\parser\model\ScannedMethod.class
 com\aicode\parser\model\AnnotationField.class
 com\aicode\analysis\service\impl\ControllerAnalysisServiceImpl.class
@@ -17,6 +18,7 @@ com\aicode\common\ResultCode.class
 com\aicode\parser\model\ProjectCodeModel$ProjectCodeModelBuilder.class
 com\aicode\analysis\service\ControllerAnalysisService.class
 com\aicode\controller\ScanController.class
+com\aicode\analysis\model\ServiceMethodInfo$ServiceMethodInfoBuilder.class
 com\aicode\config\RedisConfig.class
 com\aicode\analysis\model\EndpointInfo.class
 com\aicode\entity\ReviewResult$ReviewResultBuilder.class
@@ -47,6 +49,7 @@ com\aicode\dto\GitStatusResponse$GitStatusResponseBuilder.class
 com\aicode\mapper\ReviewTaskMapper.class
 com\aicode\entity\Project.class
 com\aicode\security\utils\JwtUtils.class
+com\aicode\analysis\model\ServiceMetadata.class
 com\aicode\config\MyBatisPlusConfig.class
 com\aicode\parser\model\AnnotationField$AnnotationFieldBuilder.class
 com\aicode\security\service\UserDetailsServiceImpl.class
@@ -66,12 +69,15 @@ com\aicode\service\GitService.class
 com\aicode\entity\User$UserBuilder.class
 com\aicode\service\impl\ProjectServiceImpl.class
 com\aicode\parser\model\AnnotationModel$AnnotationModelBuilder.class
+com\aicode\analysis\model\ServiceMetadata$ServiceMetadataBuilder.class
 com\aicode\entity\ReviewReport.class
 com\aicode\vo\ProjectVO$ProjectVOBuilder.class
+com\aicode\analysis\model\ServiceMethodInfo.class
 com\aicode\controller\AuthController.class
 com\aicode\dto\UserInfoResponse$UserInfoResponseBuilder.class
 com\aicode\exception\BusinessException.class
 com\aicode\security\handler\AuthenticationEntryPointImpl.class
+com\aicode\analysis\service\ServiceAnalysisService.class
 com\aicode\vo\ProjectVO.class
 com\aicode\dto\ProjectCreateRequest.class
 com\aicode\entity\RuleConfig$RuleConfigBuilder.class
