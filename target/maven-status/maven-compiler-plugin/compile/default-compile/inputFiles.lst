@@ -1,4 +1,8 @@
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\AiCodeReviewerApplication.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\model\ControllerMetadata.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\model\EndpointInfo.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\service\ControllerAnalysisService.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\service\impl\ControllerAnalysisServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\common\Result.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\common\ResultCode.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\MyBatisPlusConfig.java

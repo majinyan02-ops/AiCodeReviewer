@@ -1,2 +1,3 @@
 com\aicode\parser\JavaParserServiceTest.class
+com\aicode\analysis\ControllerAnalysisServiceTest.class
 com\aicode\AiCodeReviewerApplicationTests.class

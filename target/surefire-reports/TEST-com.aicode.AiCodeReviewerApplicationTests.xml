@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.aicode.parser.JavaParserServiceTest" time="0.035" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.aicode.AiCodeReviewerApplicationTests" time="6.981" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,27 +67,42 @@
     <property name="java.class.version" value="65.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[ai-code-reviewer] "/>
   </properties>
-  <testcase name="parseProject_shouldFindUserControllerWithMethods" classname="com.aicode.parser.JavaParserServiceTest" time="0.018">
-    <system-out><![CDATA[2026-06-15T11:28:16.269+08:00  INFO 6224 --- [ai-code-reviewer] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aicode.parser.JavaParserServiceTest]: JavaParserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-06-15T11:28:16.281+08:00  INFO 6224 --- [ai-code-reviewer] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aicode.AiCodeReviewerApplication for test class com.aicode.parser.JavaParserServiceTest
-2026-06-15T11:28:16.287+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : parseProject: 扫描到 4 个 Java 文件
-2026-06-15T11:28:16.296+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : parseProject 完成: path=D:/test-project, files=4, classes=3, elapsed=10ms
-===================================
-扫描路径: D:/test-project
-扫描文件数: 4
-扫描耗时: 10ms
-===================================
-UserController
-  save()
-  update()
-  delete()
-User
-UserServiceImpl
-  save()
-  update()
-  delete()
-===================================
-✅ Task-08 parseProject() 测试通过！
+  <testcase name="contextLoads" classname="com.aicode.AiCodeReviewerApplicationTests" time="0.425">
+    <system-out><![CDATA[11:28:09.176 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.aicode.AiCodeReviewerApplicationTests]: AiCodeReviewerApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:28:09.277 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.aicode.AiCodeReviewerApplication for test class com.aicode.AiCodeReviewerApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.5.0)
+
+2026-06-15T11:28:09.781+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.aicode.AiCodeReviewerApplicationTests  : Starting AiCodeReviewerApplicationTests using Java 21.0.11 with PID 6224 (started by 28919 in D:\Desktop\AiCodeReviewer)
+2026-06-15T11:28:09.782+08:00 DEBUG 6224 --- [ai-code-reviewer] [           main] c.aicode.AiCodeReviewerApplicationTests  : Running with Spring Boot v3.5.0, Spring v6.2.7
+2026-06-15T11:28:09.782+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.aicode.AiCodeReviewerApplicationTests  : The following 1 profile is active: "test"
+2026-06-15T11:28:11.104+08:00  INFO 6224 --- [ai-code-reviewer] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-15T11:28:11.107+08:00  INFO 6224 --- [ai-code-reviewer] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-15T11:28:11.143+08:00  INFO 6224 --- [ai-code-reviewer] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+Logging initialized using 'class org.apache.ibatis.logging.stdout.StdOutImpl' adapter.
+Initialization Sequence datacenterId:8 workerId:22
+ _ _   |_  _ _|_. ___ _ |    _ 
+| | |\/|_)(_| | |_\  |_)||_|_\ 
+     /               |         
+                        3.5.5 
+2026-06-15T11:28:12.363+08:00  INFO 6224 --- [ai-code-reviewer] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-15T11:28:12.648+08:00  INFO 6224 --- [ai-code-reviewer] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:ai_code_reviewer user=SA
+2026-06-15T11:28:12.653+08:00  INFO 6224 --- [ai-code-reviewer] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-15T11:28:14.481+08:00  INFO 6224 --- [ai-code-reviewer] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-06-15T11:28:15.594+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.aicode.AiCodeReviewerApplicationTests  : Started AiCodeReviewerApplicationTests in 6.186 seconds (process running for 7.019)
 ]]></system-out>
+    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (D:\WindowsSoftWare\apache-maven-3.9.4\mvn_repo\net\bytebuddy\byte-buddy-agent\1.17.5\byte-buddy-agent-1.17.5.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
   </testcase>
 </testsuite>

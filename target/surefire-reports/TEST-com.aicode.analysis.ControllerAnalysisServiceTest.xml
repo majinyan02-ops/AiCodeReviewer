@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.aicode.parser.JavaParserServiceTest" time="0.035" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.aicode.analysis.ControllerAnalysisServiceTest" time="0.225" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -67,27 +67,27 @@
     <property name="java.class.version" value="65.0"/>
     <property name="LOGGED_APPLICATION_NAME" value="[ai-code-reviewer] "/>
   </properties>
-  <testcase name="parseProject_shouldFindUserControllerWithMethods" classname="com.aicode.parser.JavaParserServiceTest" time="0.018">
-    <system-out><![CDATA[2026-06-15T11:28:16.269+08:00  INFO 6224 --- [ai-code-reviewer] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aicode.parser.JavaParserServiceTest]: JavaParserServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-06-15T11:28:16.281+08:00  INFO 6224 --- [ai-code-reviewer] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aicode.AiCodeReviewerApplication for test class com.aicode.parser.JavaParserServiceTest
-2026-06-15T11:28:16.287+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : parseProject: 扫描到 4 个 Java 文件
-2026-06-15T11:28:16.296+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : parseProject 完成: path=D:/test-project, files=4, classes=3, elapsed=10ms
+  <testcase name="extractFromScanContext_shouldFindUserControllerEndpoints" classname="com.aicode.analysis.ControllerAnalysisServiceTest" time="0.209">
+    <system-out><![CDATA[2026-06-15T11:28:16.041+08:00  INFO 6224 --- [ai-code-reviewer] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.aicode.analysis.ControllerAnalysisServiceTest]: ControllerAnalysisServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-06-15T11:28:16.051+08:00  INFO 6224 --- [ai-code-reviewer] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.aicode.AiCodeReviewerApplication for test class com.aicode.analysis.ControllerAnalysisServiceTest
+2026-06-15T11:28:16.060+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : 扫描到 4 个 Java 文件
+2026-06-15T11:28:16.217+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.parser.impl.JavaParserServiceImpl    : 扫描完成: projectId=1, files=4, controllers=1, services=1, mappers=0, entities=1, elapsed=159ms
 ===================================
 扫描路径: D:/test-project
 扫描文件数: 4
-扫描耗时: 10ms
+Controller 数: 1
+Service 数: 1
+Mapper 数: 0
+扫描耗时: 159ms
 ===================================
-UserController
-  save()
-  update()
-  delete()
-User
-UserServiceImpl
-  save()
-  update()
-  delete()
+2026-06-15T11:28:16.257+08:00  INFO 6224 --- [ai-code-reviewer] [           main] c.a.a.s.i.ControllerAnalysisServiceImpl  : Controller 元数据提取: UserController -> 3 个端点 (basePath=/api/users)
+UserController.basePath = /api/users
 ===================================
-✅ Task-08 parseProject() 测试通过！
+GET /api/users/save -> save() (line 9)
+PUT /api/users/update -> update() (line 14)
+DELETE /api/users/{id} -> delete() (line 19)
+===================================
+✅ Task-09 ControllerAnalysisService 测试通过！
 ]]></system-out>
   </testcase>
 </testsuite>

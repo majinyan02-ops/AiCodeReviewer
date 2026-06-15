@@ -2,6 +2,7 @@ com\aicode\service\impl\AuthServiceImpl.class
 com\aicode\parser\model\ScannedMethod$ScannedMethodBuilder.class
 com\aicode\service\impl\GitServiceImpl.class
 com\aicode\dto\ProjectUpdateRequest.class
+com\aicode\analysis\model\ControllerMetadata$ControllerMetadataBuilder.class
 com\aicode\mapper\ReviewReportMapper.class
 com\aicode\dto\GitStatusResponse.class
 com\aicode\entity\ReviewTask$ReviewTaskBuilder.class
@@ -11,10 +12,13 @@ com\aicode\security\handler\AccessDeniedHandlerImpl.class
 com\aicode\parser\model\ScannedClass.class
 com\aicode\parser\model\ScannedMethod.class
 com\aicode\parser\model\AnnotationField.class
+com\aicode\analysis\service\impl\ControllerAnalysisServiceImpl.class
 com\aicode\common\ResultCode.class
 com\aicode\parser\model\ProjectCodeModel$ProjectCodeModelBuilder.class
+com\aicode\analysis\service\ControllerAnalysisService.class
 com\aicode\controller\ScanController.class
 com\aicode\config\RedisConfig.class
+com\aicode\analysis\model\EndpointInfo.class
 com\aicode\entity\ReviewResult$ReviewResultBuilder.class
 com\aicode\parser\model\ScanContext$ScanContextBuilder.class
 com\aicode\parser\model\ScanContext.class
@@ -28,6 +32,8 @@ com\aicode\exception\GlobalExceptionHandler.class
 com\aicode\parser\JavaParserService.class
 com\aicode\dto\RegisterRequest.class
 com\aicode\parser\impl\JavaParserServiceImpl.class
+com\aicode\analysis\model\ControllerMetadata.class
+com\aicode\analysis\model\EndpointInfo$EndpointInfoBuilder.class
 com\aicode\dto\LoginResponse$LoginResponseBuilder.class
 com\aicode\dto\GitSyncResponse$GitSyncResponseBuilder.class
 com\aicode\dto\LoginResponse.class
