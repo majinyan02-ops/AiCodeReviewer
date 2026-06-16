@@ -1,5 +1,6 @@
 package com.aicode.parser.impl;
 
+import com.aicode.analysis.model.MethodCallInfo;
 import com.aicode.parser.JavaParserService;
 import com.aicode.parser.model.*;
 import com.github.javaparser.StaticJavaParser;
@@ -153,7 +154,9 @@ public class JavaParserServiceImpl implements JavaParserService {
         try {
             CompilationUnit cu = StaticJavaParser.parse(filePath);
             return cu.findAll(ClassOrInterfaceDeclaration.class).stream()
-                    .filter(c -> !c.isInterface())
+                    .filter(c -> !c.isInterface()
+                            || c.getNameAsString().endsWith("Mapper")
+                            || c.getNameAsString().endsWith("Repository"))
                     .findFirst()
                     .map(cls -> buildScannedClass(cu, cls, filePath))
                     .orElse(null);
@@ -211,16 +214,38 @@ public class JavaParserServiceImpl implements JavaParserService {
         boolean hasSysOut = method.toString().contains("System.out.println")
                 || method.toString().contains("System.err.println");
 
+        boolean hasLogging = method.toString().contains("log.info")
+                || method.toString().contains("log.warn")
+                || method.toString().contains("log.error")
+                || method.toString().contains("log.debug");
+
         List<String> mapperCalls = new ArrayList<>();
+        List<MethodCallInfo> serviceCalls = new ArrayList<>();
+
         method.accept(new VoidVisitorAdapter<Void>() {
             @Override
             public void visit(MethodCallExpr call, Void arg) {
-                String callStr = call.getNameAsString();
-                if (callStr.endsWith("Mapper") || isMapperMethod(callStr)) {
-                    mapperCalls.add(call.getScope()
-                            .map(s -> s + "." + callStr)
-                            .orElse(callStr));
+                String methodName = call.getNameAsString();
+                String scope = call.getScope().map(s -> s.toString()).orElse("");
+
+                // Service 调用检测：scope 名称以 Service 结尾
+                boolean isServiceCall = !scope.isEmpty() && scope.toLowerCase().endsWith("service");
+
+                if (isServiceCall) {
+                    serviceCalls.add(MethodCallInfo.builder()
+                            .targetClass(scope)
+                            .targetMethod(methodName)
+                            .callType("SERVICE_CALL")
+                            .build());
                 }
+
+                // Mapper 调用检测（排除已识别为 Service 调用的）
+                if (!isServiceCall && (methodName.endsWith("Mapper") || isMapperMethod(methodName))) {
+                    mapperCalls.add(call.getScope()
+                            .map(s -> s + "." + methodName)
+                            .orElse(methodName));
+                }
+
                 super.visit(call, arg);
             }
         }, null);
@@ -234,7 +259,9 @@ public class JavaParserServiceImpl implements JavaParserService {
                 .startLine(startLine)
                 .endLine(endLine)
                 .hasSysOut(hasSysOut)
+                .hasLogging(hasLogging)
                 .mapperCalls(mapperCalls)
+                .serviceCalls(serviceCalls)
                 .build();
     }
 

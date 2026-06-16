@@ -46,10 +46,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                             .role(jwtUtils.parseToken(token).get("role", String.class))
                             .build()
             );
-
+            // 5. 放入SecurityContext（后续Controller可以通过SecurityUtils获取）
+            // ① Principal: 用户身份信息
+            // ② Credentials: 凭证（认证后设为null）
+            // ③ Authorities: 权限列表
+            //UsernamePasswordAuthenticationToken 是 Spring Security 的认证令牌，代表"当前用户已经通过认证"。
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
 
+            //Spring Security 的全局安全上下文，类似于一个"保险箱"
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 

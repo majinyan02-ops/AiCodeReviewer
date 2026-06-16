@@ -21,13 +21,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * JWT 无状态认证架构
  */
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity
-@RequiredArgsConstructor
+@EnableWebSecurity  // 启用 Spring Security 的 Web 安全支持
+@EnableMethodSecurity   // 启用方法级别的安全控制（如 @PreAuthorize）
+@RequiredArgsConstructor    // Lombok 注解，为 final 字段生成构造函数
 public class SecurityConfig {
 
+    //拦截请求，验证 JWT Token
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    //户未登录时返回 401
     private final AuthenticationEntryPointImpl authenticationEntryPoint;
+    //用户权限不足时返回 403
     private final AccessDeniedHandlerImpl accessDeniedHandler;
 
     /**

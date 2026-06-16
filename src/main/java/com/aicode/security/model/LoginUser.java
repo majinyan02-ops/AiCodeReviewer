@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 /**
- * Spring Security 登录用户封装
+ * Spring Security 登录用户封装   把数据库中的实体转换成SpringSecurity能识别的用户对象
  */
 @Getter
 public class LoginUser implements UserDetails {
@@ -26,6 +26,7 @@ public class LoginUser implements UserDetails {
         this.username = user.getUsername();
         this.password = user.getPassword();
         this.role = user.getRole();
+        // 角色转换为SimpleGrantedAuthority对象
         this.authorities = Collections.singletonList(
                 new SimpleGrantedAuthority("ROLE_" + user.getRole())
         );
