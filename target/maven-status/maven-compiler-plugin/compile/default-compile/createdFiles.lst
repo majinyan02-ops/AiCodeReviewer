@@ -1,6 +1,8 @@
 com\aicode\service\impl\GitServiceImpl.class
+com\aicode\ai\model\AiIssueAnalysis$AiIssueAnalysisBuilder.class
 com\aicode\analysis\model\ControllerMetadata$ControllerMetadataBuilder.class
 com\aicode\analysis\service\CallGraphService.class
+com\aicode\ai\model\AiReviewResult.class
 com\aicode\rule\RuleEngine.class
 com\aicode\config\SecurityConfig.class
 com\aicode\rule\impl\Rule004SystemOutPrintln.class
@@ -10,6 +12,7 @@ com\aicode\rule\impl\Rule005LongMethod.class
 com\aicode\analysis\model\CallNode.class
 com\aicode\analysis\service\impl\CallGraphServiceImpl.class
 com\aicode\controller\ScanController.class
+com\aicode\ai\model\AiReviewRequest.class
 com\aicode\config\RedisConfig.class
 com\aicode\analysis\model\EndpointInfo.class
 com\aicode\parser\model\ScanContext$ScanContextBuilder.class
@@ -28,12 +31,15 @@ com\aicode\common\Result.class
 com\aicode\mapper\ReviewTaskMapper.class
 com\aicode\entity\Project.class
 com\aicode\security\utils\JwtUtils.class
+com\aicode\ai\service\impl\AiReviewServiceImpl.class
 com\aicode\analysis\model\ServiceMetadata.class
 com\aicode\parser\model\AnnotationField$AnnotationFieldBuilder.class
 com\aicode\security\service\UserDetailsServiceImpl.class
+com\aicode\ai\model\AiIssueAnalysis.class
 com\aicode\entity\RuleConfig.class
 com\aicode\analysis\model\CallEdge$CallEdgeBuilder.class
 com\aicode\entity\Project$ProjectBuilder.class
+com\aicode\ai\service\AiReviewService.class
 com\aicode\dto\UserInfoResponse.class
 com\aicode\service\impl\ProjectServiceImpl.class
 com\aicode\vo\ProjectVO$ProjectVOBuilder.class
@@ -41,6 +47,7 @@ com\aicode\dto\UserInfoResponse$UserInfoResponseBuilder.class
 com\aicode\analysis\model\CallGraph$CallGraphBuilder.class
 com\aicode\analysis\service\ServiceAnalysisService.class
 com\aicode\entity\RuleConfig$RuleConfigBuilder.class
+com\aicode\ai\model\AiReviewRequest$AiReviewRequestBuilder.class
 com\aicode\service\impl\AuthServiceImpl.class
 com\aicode\parser\model\ScannedMethod$ScannedMethodBuilder.class
 com\aicode\dto\ProjectUpdateRequest.class
@@ -56,6 +63,8 @@ com\aicode\parser\model\ScannedMethod.class
 com\aicode\analysis\model\CallEdge.class
 com\aicode\analysis\service\impl\ControllerAnalysisServiceImpl.class
 com\aicode\common\ResultCode.class
+com\aicode\ai\service\PromptBuilder.class
+com\aicode\ai\model\AiReviewResult$AiReviewResultBuilder.class
 com\aicode\analysis\service\ControllerAnalysisService.class
 com\aicode\rule\model\RuleResult.class
 com\aicode\analysis\model\ServiceMethodInfo$ServiceMethodInfoBuilder.class

@@ -25,11 +25,11 @@ spring:
 
   ai:
     openai:
-      api-key: ${AI_API_KEY:your-api-key}
-      base-url: ${AI_BASE_URL:https://api.deepseek.com/v1}
+      api-key: ${AI_API_KEY}
+      base-url: ${AI_BASE_URL}
       chat:
         options:
-          model: deepseek-chat
+          model: ${AI_MODEL:deepseek-chat}
           temperature: 0.3
 
 mybatis-plus:
