@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AiIssueAnalysis {
 
-    /** 对应的规则编号 */
+    /** 对应的规则编号: RULE-001, RULE-002, ... */
     private String ruleId;
+
+    /** 规则名称 */
+    private String ruleName;
 
     /** 违规类名 */
     private String className;
@@ -26,12 +29,15 @@ public class AiIssueAnalysis {
     /** 风险等级: 高 / 中 / 低 */
     private String riskLevel;
 
-    /** 问题解释 */
-    private String explanation;
+    /** 问题原因 */
+    private String reason;
+
+    /** 影响分析 */
+    private String impact;
 
     /** 修复建议 */
-    private String fixSuggestion;
+    private String suggestion;
 
     /** 修复后的代码示例 */
-    private String fixedCode;
+    private String exampleFix;
 }

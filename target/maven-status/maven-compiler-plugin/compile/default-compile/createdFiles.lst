@@ -16,7 +16,9 @@ com\aicode\ai\model\AiReviewRequest.class
 com\aicode\config\RedisConfig.class
 com\aicode\analysis\model\EndpointInfo.class
 com\aicode\parser\model\ScanContext$ScanContextBuilder.class
+com\aicode\ai\service\impl\AiAnalysisServiceImpl.class
 com\aicode\entity\ReviewResult.class
+com\aicode\ai\service\PromptService.class
 com\aicode\parser\JavaParserService.class
 com\aicode\parser\impl\JavaParserServiceImpl.class
 com\aicode\analysis\model\ControllerMetadata.class
@@ -36,6 +38,7 @@ com\aicode\analysis\model\ServiceMetadata.class
 com\aicode\parser\model\AnnotationField$AnnotationFieldBuilder.class
 com\aicode\security\service\UserDetailsServiceImpl.class
 com\aicode\ai\model\AiIssueAnalysis.class
+com\aicode\ai\service\AiAnalysisService.class
 com\aicode\entity\RuleConfig.class
 com\aicode\analysis\model\CallEdge$CallEdgeBuilder.class
 com\aicode\entity\Project$ProjectBuilder.class
@@ -46,6 +49,7 @@ com\aicode\vo\ProjectVO$ProjectVOBuilder.class
 com\aicode\dto\UserInfoResponse$UserInfoResponseBuilder.class
 com\aicode\analysis\model\CallGraph$CallGraphBuilder.class
 com\aicode\analysis\service\ServiceAnalysisService.class
+com\aicode\ai\service\AiResponseParser.class
 com\aicode\entity\RuleConfig$RuleConfigBuilder.class
 com\aicode\ai\model\AiReviewRequest$AiReviewRequestBuilder.class
 com\aicode\service\impl\AuthServiceImpl.class

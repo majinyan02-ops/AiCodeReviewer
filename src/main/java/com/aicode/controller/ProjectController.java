@@ -39,6 +39,7 @@ public class ProjectController {
 
     /**
      * 更新项目
+     * @Valid注解是验证参数的注解是否符合要求，如果不符合要求，会抛出异常
      */
     @PutMapping("/{id}")
     public Result<ProjectVO> update(@PathVariable Long id,

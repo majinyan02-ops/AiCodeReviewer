@@ -27,6 +27,7 @@ public class Project {
 
     private String description;
 
+    // application.yml 配了 map-underscore-to-camel-case: true，所以这里不需要下划线前缀
     private String gitUrl;
 
     private String branchName;

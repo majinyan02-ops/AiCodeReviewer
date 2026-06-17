@@ -92,12 +92,13 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public IPage<ProjectVO> page(Integer current, Integer size) {
+        //使用的MyBatisPlus的分页插件
         Page<Project> page = new Page<>(current, size);
         Page<Project> result = projectMapper.selectPage(page,
                 new LambdaQueryWrapper<Project>()
                         .orderByDesc(Project::getCreateTime)
         );
-
+        //数据库实体转换为视图对象
         return result.convert(this::toVO);
     }
 
