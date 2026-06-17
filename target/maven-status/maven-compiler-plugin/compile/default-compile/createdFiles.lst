@@ -20,6 +20,7 @@ com\aicode\ai\service\impl\AiAnalysisServiceImpl.class
 com\aicode\entity\ReviewResult.class
 com\aicode\ai\service\PromptService.class
 com\aicode\parser\JavaParserService.class
+com\aicode\report\controller\ReviewReportController.class
 com\aicode\parser\impl\JavaParserServiceImpl.class
 com\aicode\analysis\model\ControllerMetadata.class
 com\aicode\dto\LoginResponse$LoginResponseBuilder.class
@@ -47,13 +48,17 @@ com\aicode\dto\UserInfoResponse.class
 com\aicode\service\impl\ProjectServiceImpl.class
 com\aicode\vo\ProjectVO$ProjectVOBuilder.class
 com\aicode\dto\UserInfoResponse$UserInfoResponseBuilder.class
+com\aicode\report\model\ReviewReport$ReviewReportBuilder.class
 com\aicode\analysis\model\CallGraph$CallGraphBuilder.class
 com\aicode\analysis\service\ServiceAnalysisService.class
 com\aicode\ai\service\AiResponseParser.class
 com\aicode\entity\RuleConfig$RuleConfigBuilder.class
+com\aicode\report\model\IssueSummary.class
 com\aicode\ai\model\AiReviewRequest$AiReviewRequestBuilder.class
+com\aicode\report\service\ReportService.class
 com\aicode\service\impl\AuthServiceImpl.class
 com\aicode\parser\model\ScannedMethod$ScannedMethodBuilder.class
+com\aicode\report\service\impl\ReportServiceImpl.class
 com\aicode\dto\ProjectUpdateRequest.class
 com\aicode\mapper\ReviewReportMapper.class
 com\aicode\dto\GitStatusResponse.class
@@ -69,6 +74,7 @@ com\aicode\analysis\service\impl\ControllerAnalysisServiceImpl.class
 com\aicode\common\ResultCode.class
 com\aicode\ai\service\PromptBuilder.class
 com\aicode\ai\model\AiReviewResult$AiReviewResultBuilder.class
+com\aicode\report\model\IssueSummary$IssueSummaryBuilder.class
 com\aicode\analysis\service\ControllerAnalysisService.class
 com\aicode\rule\model\RuleResult.class
 com\aicode\analysis\model\ServiceMethodInfo$ServiceMethodInfoBuilder.class
@@ -83,6 +89,7 @@ com\aicode\rule\impl\Rule002MissingLogging.class
 com\aicode\service\AuthService.class
 com\aicode\exception\GlobalExceptionHandler.class
 com\aicode\dto\RegisterRequest.class
+com\aicode\report\model\ReviewReport.class
 com\aicode\analysis\model\EndpointInfo$EndpointInfoBuilder.class
 com\aicode\dto\LoginResponse.class
 com\aicode\AiCodeReviewerApplication.class
@@ -97,6 +104,7 @@ com\aicode\rule\impl\Rule001MissingTransactional.class
 com\aicode\analysis\model\CallNode$CallNodeBuilder.class
 com\aicode\mapper\RuleConfigMapper.class
 com\aicode\parser\model\ScannedClass$ScannedClassBuilder.class
+com\aicode\report\model\ReportResponse.class
 com\aicode\security\utils\SecurityUtils.class
 com\aicode\mapper\ReviewResultMapper.class
 com\aicode\controller\ProjectController.class
@@ -110,6 +118,7 @@ com\aicode\entity\ReviewReport.class
 com\aicode\analysis\model\ServiceMethodInfo.class
 com\aicode\controller\AuthController.class
 com\aicode\exception\BusinessException.class
+com\aicode\report\model\ReportResponse$ReportResponseBuilder.class
 com\aicode\security\handler\AuthenticationEntryPointImpl.class
 com\aicode\vo\ProjectVO.class
 com\aicode\dto\ProjectCreateRequest.class
