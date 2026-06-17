@@ -63,6 +63,10 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\parser\model\ScanContext.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\parser\model\ScannedClass.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\parser\model\ScannedMethod.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\controller\ReviewReportController.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\MarkdownReportGenerator.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\MarkdownReportGeneratorImpl.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\PdfReportGenerator.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\PdfReportGeneratorImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\model\IssueSummary.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\model\ReportResponse.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\model\ReviewReport.java
