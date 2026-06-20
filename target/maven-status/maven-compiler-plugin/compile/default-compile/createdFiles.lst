@@ -1,11 +1,14 @@
 com\aicode\service\impl\GitServiceImpl.class
 com\aicode\ai\model\AiIssueAnalysis$AiIssueAnalysisBuilder.class
+com\aicode\report\service\ReportTaskTracker.class
 com\aicode\analysis\model\ControllerMetadata$ControllerMetadataBuilder.class
 com\aicode\analysis\service\CallGraphService.class
 com\aicode\ai\model\AiReviewResult.class
 com\aicode\rule\RuleEngine.class
 com\aicode\config\SecurityConfig.class
 com\aicode\rule\impl\Rule004SystemOutPrintln.class
+com\aicode\report\dto\ReportProgress$ReportProgressBuilder.class
+com\aicode\report\dto\ReportProgress.class
 com\aicode\parser\model\AnnotationField.class
 com\aicode\parser\model\ProjectCodeModel$ProjectCodeModelBuilder.class
 com\aicode\rule\impl\Rule005LongMethod.class
@@ -19,6 +22,7 @@ com\aicode\parser\model\ScanContext$ScanContextBuilder.class
 com\aicode\report\generator\PdfReportGenerator.class
 com\aicode\ai\service\impl\AiAnalysisServiceImpl.class
 com\aicode\entity\ReviewResult.class
+com\aicode\config\CacheConfig.class
 com\aicode\ai\service\PromptService.class
 com\aicode\parser\JavaParserService.class
 com\aicode\report\controller\ReviewReportController.class
@@ -61,12 +65,14 @@ com\aicode\report\service\ReportService.class
 com\aicode\service\impl\AuthServiceImpl.class
 com\aicode\parser\model\ScannedMethod$ScannedMethodBuilder.class
 com\aicode\report\service\impl\ReportServiceImpl.class
+com\aicode\ai\service\AnalysisCacheService.class
 com\aicode\dto\ProjectUpdateRequest.class
 com\aicode\report\generator\MarkdownReportGeneratorImpl.class
 com\aicode\mapper\ReviewReportMapper.class
 com\aicode\dto\GitStatusResponse.class
 com\aicode\entity\ReviewTask$ReviewTaskBuilder.class
 com\aicode\dto\GitSyncResponse.class
+com\aicode\cache\controller\CacheController.class
 com\aicode\security\handler\AccessDeniedHandlerImpl.class
 com\aicode\parser\model\ScannedClass.class
 com\aicode\analysis\service\impl\ServiceAnalysisServiceImpl.class

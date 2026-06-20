@@ -4,6 +4,7 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\model\AiReviewResult.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\AiAnalysisService.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\AiResponseParser.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\AiReviewService.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\AnalysisCacheService.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\impl\AiAnalysisServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\impl\AiReviewServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\service\PromptBuilder.java
@@ -23,8 +24,10 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\service\impl\CallGra
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\service\impl\ControllerAnalysisServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\service\impl\ServiceAnalysisServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\analysis\service\ServiceAnalysisService.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\cache\controller\CacheController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\common\Result.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\common\ResultCode.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\CacheConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\MyBatisPlusConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\RedisConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\SecurityConfig.java
@@ -63,6 +66,7 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\parser\model\ScanContext.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\parser\model\ScannedClass.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\parser\model\ScannedMethod.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\controller\ReviewReportController.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\dto\ReportProgress.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\MarkdownReportGenerator.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\MarkdownReportGeneratorImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\generator\PdfReportGenerator.java
@@ -72,6 +76,7 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\model\ReportResponse.j
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\model\ReviewReport.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\service\impl\ReportServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\service\ReportService.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\service\ReportTaskTracker.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\rule\impl\Rule001MissingTransactional.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\rule\impl\Rule002MissingLogging.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\rule\impl\Rule003ControllerDirectMapper.java

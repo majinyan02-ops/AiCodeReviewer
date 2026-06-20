@@ -48,6 +48,8 @@ mybatis-plus:
 git:
   storage:
     path: ${GIT_STORAGE_PATH:./git-repos}
+  clone:
+    timeout-seconds: 120
 
 jwt:
   secret: ${JWT_SECRET:ai-code-reviewer-secret-key-2026-must-be-at-least-256-bits}

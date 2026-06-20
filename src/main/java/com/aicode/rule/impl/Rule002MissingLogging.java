@@ -51,6 +51,7 @@ public class Rule002MissingLogging implements RuleChecker {
                         .message(String.format("方法 %s.%s() 缺少日志记录",
                                 clazz.getClassName(), method.getMethodName()))
                         .suggestion("在方法中添加 log.info() 或 log.debug() 记录关键操作")
+                        .contentHash(method.getContentHash())
                         .build());
             }
         }

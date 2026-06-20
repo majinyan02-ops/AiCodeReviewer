@@ -30,11 +30,14 @@ public class GitServiceImpl implements GitService {
 
     private final ProjectMapper projectMapper;
     private final Path storagePath;
+    private final int cloneTimeoutSeconds;
 
     public GitServiceImpl(ProjectMapper projectMapper,
-                          @Value("${git.storage.path}") String storagePath) {
+                          @Value("${git.storage.path}") String storagePath,
+                          @Value("${git.clone.timeout-seconds:120}") int cloneTimeoutSeconds) {
         this.projectMapper = projectMapper;
         this.storagePath = Path.of(storagePath);
+        this.cloneTimeoutSeconds = cloneTimeoutSeconds;
     }
 
     @Override
@@ -43,25 +46,41 @@ public class GitServiceImpl implements GitService {
         String gitUrl = requireGitUrl(project);
         File localDir = getLocalDir(projectId);
 
-        log.info("开始 Clone: projectId={}, url={}, path={}", projectId, gitUrl, localDir);
+        log.info("开始 Clone: projectId={}, url={}, path={}, timeout={}s",
+                projectId, gitUrl, localDir, cloneTimeoutSeconds);
 
         if (localDir.exists()) {
             log.warn("目录已存在, 先删除再 Clone: {}", localDir);
             deleteDirectory(localDir);
         }
 
-        try (Git git = Git.cloneRepository()
-                .setURI(gitUrl)
-                .setDirectory(localDir)
-                .setBranch(project.getBranchName())
-                .call()) {
+        try {
+            var cloneCmd = Git.cloneRepository()
+                    .setURI(gitUrl)
+                    .setDirectory(localDir)
+                    .setBranch(project.getBranchName())
+                    .setTimeout(cloneTimeoutSeconds);
 
-            log.info("Clone 成功: projectId={}, branch={}", projectId, project.getBranchName());
-            return "Clone 成功: " + gitUrl;
+            // 公开仓库不需要凭证
+            log.info("尝试无凭证 Clone（公开仓库）...");
+
+            try (Git git = cloneCmd.call()) {
+                log.info("Clone 成功: projectId={}, branch={}", projectId, project.getBranchName());
+                return "Clone 成功: " + gitUrl;
+            }
 
         } catch (GitAPIException e) {
-            log.error("Clone 失败: projectId={}, error={}", projectId, e.getMessage());
-            throw new BusinessException("Git Clone 失败: " + e.getMessage());
+            String errorMsg = e.getMessage();
+            if (errorMsg != null && errorMsg.contains("connection")) {
+                log.error("Clone 网络连接失败: projectId={}, url={}", projectId, gitUrl);
+                throw new BusinessException("Git Clone 网络连接失败，请检查仓库地址是否正确、网络是否可达。\n" + errorMsg);
+            }
+            if (errorMsg != null && errorMsg.contains("Authentication")) {
+                log.error("Clone 认证失败: projectId={}, url={}", projectId, gitUrl);
+                throw new BusinessException("Git Clone 认证失败，请确认仓库是公开的或配置了凭证。\n" + errorMsg);
+            }
+            log.error("Clone 失败: projectId={}, error={}", projectId, errorMsg);
+            throw new BusinessException("Git Clone 失败: " + errorMsg);
         }
     }
 
@@ -79,7 +98,7 @@ public class GitServiceImpl implements GitService {
 
         try (Git git = Git.open(localDir)) {
             git.pull()
-                    .setCredentialsProvider(buildCredentials())
+                    .setTimeout(cloneTimeoutSeconds)
                     .call();
 
             log.info("Pull 成功: projectId={}", projectId);
@@ -105,7 +124,7 @@ public class GitServiceImpl implements GitService {
 
         try (Git git = Git.open(localDir)) {
             git.fetch()
-                    .setCredentialsProvider(buildCredentials())
+                    .setTimeout(cloneTimeoutSeconds)
                     .call();
 
             log.info("Fetch 成功: projectId={}", projectId);
@@ -146,16 +165,12 @@ public class GitServiceImpl implements GitService {
         return builder.build();
     }
 
-    /**
-     * 获取项目本地目录
-     */
+    // ============ 私有方法 ============
+
     private File getLocalDir(Long projectId) {
         return storagePath.resolve(String.valueOf(projectId)).toFile();
     }
 
-    /**
-     * 查询项目
-     */
     private Project getProject(Long projectId) {
         Project project = projectMapper.selectById(projectId);
         if (project == null) {
@@ -164,9 +179,6 @@ public class GitServiceImpl implements GitService {
         return project;
     }
 
-    /**
-     * 校验 Git URL
-     */
     private String requireGitUrl(Project project) {
         String gitUrl = project.getGitUrl();
         if (gitUrl == null || gitUrl.isBlank()) {
@@ -175,16 +187,6 @@ public class GitServiceImpl implements GitService {
         return gitUrl;
     }
 
-    /**
-     * 构建凭证（V1 暂不传凭证，后续扩展）
-     */
-    private UsernamePasswordCredentialsProvider buildCredentials() {
-        return null;
-    }
-
-    /**
-     * 递归删除目录
-     */
     private void deleteDirectory(File dir) {
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();

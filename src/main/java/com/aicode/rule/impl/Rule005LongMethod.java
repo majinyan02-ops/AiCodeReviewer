@@ -46,6 +46,7 @@ public class Rule005LongMethod implements RuleChecker {
                                     clazz.getClassName(), method.getMethodName(),
                                     method.getLineCount(), MAX_LINE_COUNT))
                             .suggestion("将方法拆分为多个职责单一的小方法，每个方法不超过 " + MAX_LINE_COUNT + " 行")
+                            .contentHash(method.getContentHash())
                             .build());
                 }
             }

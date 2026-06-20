@@ -49,4 +49,7 @@ public class RuleResult {
 
     /** 修复建议 */
     private String suggestion;
+
+    /** 方法体内容哈希，用于 AI 分析缓存命中判断 */
+    private String contentHash;
 }

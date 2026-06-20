@@ -54,4 +54,7 @@ public class ScannedMethod {
 
     /** 是否有日志记录（log.info/warn/error/debug） */
     private boolean hasLogging;
+
+    /** 方法体内容哈希（MD5），用于 AI 分析缓存 — 相同哈希 = 方法未变更 */
+    private String contentHash;
 }

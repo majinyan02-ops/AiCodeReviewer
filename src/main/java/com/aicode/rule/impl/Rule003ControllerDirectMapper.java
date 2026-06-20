@@ -4,13 +4,17 @@ import com.aicode.analysis.model.CallEdge;
 import com.aicode.analysis.model.CallGraph;
 import com.aicode.analysis.model.CallNode;
 import com.aicode.parser.model.ProjectCodeModel;
+import com.aicode.parser.model.ScannedClass;
+import com.aicode.parser.model.ScannedMethod;
 import com.aicode.rule.RuleChecker;
 import com.aicode.rule.model.RuleResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * RULE-003: Controller 直接访问 Mapper
@@ -31,14 +35,23 @@ public class Rule003ControllerDirectMapper implements RuleChecker {
             return results;
         }
 
+        // 构建方法哈希索引: className+methodName → contentHash
+        Map<String, String> hashIndex = new HashMap<>();
+        for (ScannedClass clazz : model.getClasses()) {
+            for (ScannedMethod method : clazz.getMethods()) {
+                hashIndex.put(clazz.getClassName() + "." + method.getMethodName(),
+                        method.getContentHash());
+            }
+        }
+
         for (CallEdge edge : callGraph.getEdges()) {
-            // 查找 Controller 发出的 MAPPER_CALL 边
             if (!"MAPPER_CALL".equals(edge.getCallType())) continue;
 
             CallNode callerNode = callGraph.getNodes().get(edge.getCallerId());
             if (callerNode == null) continue;
 
             if ("Controller".equals(callerNode.getClassType())) {
+                String key = callerNode.getClassName() + "." + callerNode.getMethodName();
                 results.add(RuleResult.builder()
                         .ruleId("RULE-003")
                         .ruleName("Controller直接访问Mapper")
@@ -53,6 +66,7 @@ public class Rule003ControllerDirectMapper implements RuleChecker {
                                 edge.getCallerClassName(), edge.getCallerMethodName(),
                                 edge.getCalleeClassName(), edge.getCalleeMethodName()))
                         .suggestion("将 Mapper 调用移到对应的 Service 类中，Controller 通过 Service 访问数据层")
+                        .contentHash(hashIndex.getOrDefault(key, ""))
                         .build());
             }
         }

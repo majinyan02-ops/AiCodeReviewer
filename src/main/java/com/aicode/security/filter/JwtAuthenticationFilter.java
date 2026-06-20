@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -17,14 +18,17 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * JWT 认证过滤器 - 每个请求校验Token
+ * JWT 认证过滤器 - 每个请求校验 Token 签名 + Redis 会话
  */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    private static final String LOGIN_USER_KEY = "login:user:";
+
     private final JwtUtils jwtUtils;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -35,27 +39,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(token) && jwtUtils.validateToken(token)) {
             Long userId = jwtUtils.getUserIdFromToken(token);
-            String username = jwtUtils.getUsernameFromToken(token);
 
-            // 构建LoginUser放入SecurityContext
-            LoginUser loginUser = new LoginUser(
-                    com.aicode.entity.User.builder()
-                            .id(userId)
-                            .username(username)
-                            .password("")
-                            .role(jwtUtils.parseToken(token).get("role", String.class))
-                            .build()
-            );
-            // 5. 放入SecurityContext（后续Controller可以通过SecurityUtils获取）
-            // ① Principal: 用户身份信息
-            // ② Credentials: 凭证（认证后设为null）
-            // ③ Authorities: 权限列表
-            //UsernamePasswordAuthenticationToken 是 Spring Security 的认证令牌，代表"当前用户已经通过认证"。
-            UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+            // Redis 会话校验：Token 必须在 Redis 中存在且匹配
+            String redisKey = LOGIN_USER_KEY + userId;
+            String cachedToken = (String) redisTemplate.opsForValue().get(redisKey);
 
-            //Spring Security 的全局安全上下文，类似于一个"保险箱"
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            if (cachedToken != null && cachedToken.equals(token)) {
+                String username = jwtUtils.getUsernameFromToken(token);
+
+                LoginUser loginUser = new LoginUser(
+                        com.aicode.entity.User.builder()
+                                .id(userId)
+                                .username(username)
+                                .password("")
+                                .role(jwtUtils.parseToken(token).get("role", String.class))
+                                .build()
+                );
+
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            } else {
+                log.warn("Redis 会话不存在或 Token 不匹配: userId={}", userId);
+            }
         }
 
         filterChain.doFilter(request, response);

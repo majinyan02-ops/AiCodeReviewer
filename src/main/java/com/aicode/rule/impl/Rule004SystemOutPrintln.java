@@ -42,6 +42,7 @@ public class Rule004SystemOutPrintln implements RuleChecker {
                             .message(String.format("方法 %s.%s() 中使用了 System.out.println 或 System.err.println",
                                     clazz.getClassName(), method.getMethodName()))
                             .suggestion("替换为 SLF4J 日志: log.info() / log.error()，并配置 Logback 输出格式")
+                            .contentHash(method.getContentHash())
                             .build());
                 }
             }

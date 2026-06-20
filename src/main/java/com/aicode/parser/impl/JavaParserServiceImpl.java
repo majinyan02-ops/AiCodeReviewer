@@ -15,10 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HexFormat;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -219,6 +223,8 @@ public class JavaParserServiceImpl implements JavaParserService {
                 || method.toString().contains("log.error")
                 || method.toString().contains("log.debug");
 
+        String contentHash = md5(method.toString());
+
         List<String> mapperCalls = new ArrayList<>();
         List<MethodCallInfo> serviceCalls = new ArrayList<>();
 
@@ -262,6 +268,7 @@ public class JavaParserServiceImpl implements JavaParserService {
                 .hasLogging(hasLogging)
                 .mapperCalls(mapperCalls)
                 .serviceCalls(serviceCalls)
+                .contentHash(contentHash)
                 .build();
     }
 
@@ -343,5 +350,15 @@ public class JavaParserServiceImpl implements JavaParserService {
                 .totalFiles(0)
                 .elapsedMs(System.currentTimeMillis() - start)
                 .build();
+    }
+
+    private String md5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] digest = md.digest(input.getBytes(StandardCharsets.UTF_8));
+            return HexFormat.of().formatHex(digest);
+        } catch (NoSuchAlgorithmException e) {
+            return Integer.toHexString(input.hashCode());
+        }
     }
 }

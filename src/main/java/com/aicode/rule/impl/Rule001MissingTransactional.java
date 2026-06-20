@@ -54,6 +54,7 @@ public class Rule001MissingTransactional implements RuleChecker {
                             .message(String.format("方法 %s.%s() 调用了 Mapper 但缺少 @Transactional 注解",
                                     clazz.getClassName(), method.getMethodName()))
                             .suggestion("在方法或类上添加 @Transactional 注解，确保数据操作的原子性")
+                            .contentHash(method.getContentHash())
                             .build());
                 }
             }

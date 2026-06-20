@@ -3,7 +3,8 @@
     "allow": [
       "Bash(JAVA_HOME=\"D:/WindowsSoftWare/jdk21\" mvn clean compile)",
       "Bash(JAVA_HOME=\"D:/WindowsSoftWare/jdk21\" mvn test -pl .)",
-      "Bash(JAVA_HOME=\"D:/WindowsSoftWare/jdk21\" mvn compile -q)"
+      "Bash(JAVA_HOME=\"D:/WindowsSoftWare/jdk21\" mvn compile -q)",
+      "Bash(git checkout *)"
     ]
   }
 }

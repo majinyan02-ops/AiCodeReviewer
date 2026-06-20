@@ -2,11 +2,13 @@ package com.aicode;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * AI Code Reviewer - 企业级AI代码审查与自动修复平台
  */
 @SpringBootApplication
+@EnableScheduling
 public class AiCodeReviewerApplication {
 
     public static void main(String[] args) {
