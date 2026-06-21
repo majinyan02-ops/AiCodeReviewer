@@ -55,23 +55,34 @@ public class GitServiceImpl implements GitService {
         }
 
         try {
+            // 自动检测远程默认分支
+            String branch = resolveRemoteBranch(gitUrl, project.getBranchName());
+            log.info("使用分支: projectId={}, branch={}", projectId, branch);
+
             var cloneCmd = Git.cloneRepository()
                     .setURI(gitUrl)
                     .setDirectory(localDir)
-                    .setBranch(project.getBranchName())
+                    .setBranch(branch)
                     .setTimeout(cloneTimeoutSeconds);
 
-            // 公开仓库不需要凭证
             log.info("尝试无凭证 Clone（公开仓库）...");
 
             try (Git git = cloneCmd.call()) {
-                log.info("Clone 成功: projectId={}, branch={}", projectId, project.getBranchName());
+                log.info("Clone 成功: projectId={}, branch={}", projectId, branch);
+
+                // 更新数据库中的分支名
+                if (!branch.equals(project.getBranchName())) {
+                    project.setBranchName(branch);
+                    projectMapper.updateById(project);
+                    log.info("已更新项目分支: projectId={}, branch={}", projectId, branch);
+                }
+
                 return "Clone 成功: " + gitUrl;
             }
 
         } catch (GitAPIException e) {
             String errorMsg = e.getMessage();
-            if (errorMsg != null && errorMsg.contains("connection")) {
+            if (errorMsg != null && (errorMsg.contains("connection") || errorMsg.contains("connect"))) {
                 log.error("Clone 网络连接失败: projectId={}, url={}", projectId, gitUrl);
                 throw new BusinessException("Git Clone 网络连接失败，请检查仓库地址是否正确、网络是否可达。\n" + errorMsg);
             }
@@ -166,6 +177,36 @@ public class GitServiceImpl implements GitService {
     }
 
     // ============ 私有方法 ============
+
+    /**
+     * 解析远程默认分支
+     * 优先使用项目配置的分支，如果为 null 则自动检测远程 HEAD 指向的分支
+     */
+    private String resolveRemoteBranch(String gitUrl, String configuredBranch) {
+        if (configuredBranch != null && !configuredBranch.isBlank()) {
+            return configuredBranch;
+        }
+
+        try {
+            log.info("自动检测远程默认分支: {}", gitUrl);
+            var lsRemote = Git.lsRemoteRepository()
+                    .setRemote(gitUrl)
+                    .setTimeout(cloneTimeoutSeconds)
+                    .setHeads(true);
+
+            Ref head = lsRemote.callAsMap().get("HEAD");
+            if (head != null && head.getTarget() != null) {
+                String targetRef = head.getTarget().getName();
+                String branch = targetRef.replace("refs/heads/", "");
+                log.info("检测到远程默认分支: {}", branch);
+                return branch;
+            }
+        } catch (Exception e) {
+            log.warn("自动检测远程分支失败, 使用默认值 'master': {}", e.getMessage());
+        }
+
+        return "master";
+    }
 
     private File getLocalDir(Long projectId) {
         return storagePath.resolve(String.valueOf(projectId)).toFile();

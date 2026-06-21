@@ -31,11 +31,13 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\CacheConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\MyBatisPlusConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\RedisConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\SecurityConfig.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\config\WebSocketConfig.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\controller\AuthController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\controller\GitController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\controller\ProjectController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\controller\ScanController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\dto\GitStatusResponse.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\dto\GitSyncMessage.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\dto\GitSyncResponse.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\dto\LoginRequest.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\dto\LoginResponse.java
@@ -93,6 +95,7 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\security\service\UserDetailsS
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\security\utils\JwtUtils.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\security\utils\SecurityUtils.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\service\AuthService.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\service\GitNotifyService.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\service\GitService.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\service\impl\AuthServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\service\impl\GitServiceImpl.java

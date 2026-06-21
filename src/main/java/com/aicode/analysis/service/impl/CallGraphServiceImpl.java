@@ -55,16 +55,33 @@ public class CallGraphServiceImpl implements CallGraphService {
         return build(null, allClasses);
     }
 
+    @Override
+    public CallGraph buildFromProjectCodeModel(ProjectCodeModel model, Long projectId) {
+        if (model == null || model.getClasses() == null) {
+            return emptyGraph(projectId);
+        }
+
+        List<ScannedClass> allClasses = model.getClasses().stream()
+                .filter(c -> "Controller".equals(c.getClassType())
+                        || "Service".equals(c.getClassType())
+                        || "Mapper".equals(c.getClassType()))
+                .toList();
+
+        return build(projectId, allClasses);
+    }
+
     // ============ 私有方法 ============
 
     private CallGraph build(Long projectId, List<ScannedClass> allClasses) {
         // Step 1: 构建节点索引 + 类名查找索引
         Map<String, CallNode> nodes = new LinkedHashMap<>();
         Map<String, String> classNameIndex = new LinkedHashMap<>(); // 小写简单类名 → qualifiedName
+        Map<String, String> classTypeIndex = new LinkedHashMap<>(); // qualifiedName → classType
 
         for (ScannedClass clazz : allClasses) {
             String simpleNameLower = clazz.getClassName().toLowerCase();
             classNameIndex.put(simpleNameLower, clazz.getQualifiedName());
+            classTypeIndex.put(clazz.getQualifiedName(), clazz.getClassType());
 
             for (ScannedMethod method : clazz.getMethods()) {
                 String nodeId = clazz.getQualifiedName() + "." + method.getMethodName();
@@ -127,6 +144,14 @@ public class CallGraphServiceImpl implements CallGraphService {
                     if (resolvedQualifiedName == null) {
                         log.debug("无法解析 Mapper 调用: {}.{}() → {}.{}()",
                                 clazz.getClassName(), method.getMethodName(), scope, mapperMethod);
+                        continue;
+                    }
+
+                    // 验证目标类确实是 Mapper 类型
+                    String resolvedType = classTypeIndex.get(resolvedQualifiedName);
+                    if (!"Mapper".equals(resolvedType)) {
+                        log.debug("非 Mapper 类型，跳过: {}.{}() → {}.{}() (type={})",
+                                clazz.getClassName(), method.getMethodName(), scope, mapperMethod, resolvedType);
                         continue;
                     }
 

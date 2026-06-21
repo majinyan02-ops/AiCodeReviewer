@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `project` (
     `name`        VARCHAR(100) NOT NULL,
     `description` VARCHAR(500),
     `git_url`     VARCHAR(500),
-    `branch_name` VARCHAR(50)  DEFAULT 'main',
+    `branch_name` VARCHAR(50),
     `creator_id`  BIGINT       NOT NULL,
     `status`      TINYINT      NOT NULL DEFAULT 1,
     `create_time` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP

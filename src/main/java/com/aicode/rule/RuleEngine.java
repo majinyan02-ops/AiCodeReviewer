@@ -39,7 +39,7 @@ public class RuleEngine {
         ProjectCodeModel model = javaParserService.parseProject(sourcePath);
 
         // 2. 构建调用图
-        CallGraph callGraph = callGraphService.buildFromProjectCodeModel(model);
+        CallGraph callGraph = callGraphService.buildFromProjectCodeModel(model, projectId);
 
         // 3. 执行所有规则
         List<RuleResult> allResults = new ArrayList<>();

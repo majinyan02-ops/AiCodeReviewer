@@ -2,6 +2,8 @@ package com.aicode.report.service;
 
 import com.aicode.ai.model.AiIssueAnalysis;
 import com.aicode.ai.service.AiAnalysisService;
+import com.aicode.entity.Project;
+import com.aicode.mapper.ProjectMapper;
 import com.aicode.report.dto.ReportProgress;
 import com.aicode.report.model.ReviewReport;
 import com.aicode.rule.RuleEngine;
@@ -29,6 +31,7 @@ public class ReportTaskTracker {
     private final RuleEngine ruleEngine;
     private final AiAnalysisService aiAnalysisService;
     private final ReportService reportService;
+    private final ProjectMapper projectMapper;
 
     /** 进度条目 + 最后更新时间 */
     private final Map<String, ReportProgress> progressMap = new ConcurrentHashMap<>();
@@ -53,6 +56,11 @@ public class ReportTaskTracker {
             try {
                 String sourcePath = "./git-repos/" + projectId;
 
+                Project project = projectMapper.selectById(projectId);
+                String projectName = (project != null && project.getName() != null)
+                        ? project.getName()
+                        : "project-" + projectId;
+
                 updateProgress(taskId, "正在执行规则检测...", 10);
                 List<RuleResult> ruleResults = ruleEngine.analyze(projectId, sourcePath);
 
@@ -76,13 +84,13 @@ public class ReportTaskTracker {
 
                     updateProgress(taskId, "正在生成报告...", 85);
                     ReviewReport report = reportService.generateReport(
-                            "project-" + projectId, ruleResults, analyses);
+                            projectName, ruleResults, analyses);
 
                     progressMap.put(taskId, ReportProgress.success(taskId, report));
                 } else {
                     updateProgress(taskId, "正在生成报告...", 85);
                     ReviewReport report = reportService.generateReport(
-                            "project-" + projectId, ruleResults, List.of());
+                            projectName, ruleResults, List.of());
                     progressMap.put(taskId, ReportProgress.success(taskId, report));
                 }
                 updateTimeMap.put(taskId, Instant.now());

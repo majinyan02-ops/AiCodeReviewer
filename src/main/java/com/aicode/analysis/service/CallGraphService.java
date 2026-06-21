@@ -19,4 +19,9 @@ public interface CallGraphService {
      * 从 ProjectCodeModel 构建调用图
      */
     CallGraph buildFromProjectCodeModel(ProjectCodeModel model);
+
+    /**
+     * 从 ProjectCodeModel 构建调用图（带 projectId）
+     */
+    CallGraph buildFromProjectCodeModel(ProjectCodeModel model, Long projectId);
 }

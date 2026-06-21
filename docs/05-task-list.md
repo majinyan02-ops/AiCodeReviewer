@@ -334,3 +334,142 @@ Task-33
 Task-34
 
 Multi Agent架构
+
+
+
+# =========================
+# Phase-2 AI Code Reviewer Pro
+# =========================
+
+## Task-30 Auto Fix Engine
+
+目标：
+
+基于 RuleResult 自动生成代码修复建议。
+
+功能：
+
+- FixSuggestion模型
+- AutoFixService
+- FixPromptBuilder
+- FixResponseParser
+- Redis缓存
+
+输出：
+
+FixSuggestion
+
+状态：
+
+[x] Done
+
+---
+
+## Task-31 Patch Engine
+
+目标：
+
+根据 FixSuggestion 生成标准Git Patch。
+
+功能：
+
+- PatchGenerator
+- DiffBuilder
+- PatchPreview
+
+输出：
+
+review.patch
+
+状态：
+
+[x] Done
+
+---
+
+## Task-32 Agent Framework
+
+目标：
+
+构建统一Agent框架。
+
+功能：
+
+- Agent接口
+- AgentContext
+- AgentResult
+- AgentType
+- AgentOrchestrator
+
+输出：
+
+Agent Framework
+
+状态：
+
+[ ] Todo
+
+---
+
+## Task-33 Review Agent
+
+目标：
+
+封装代码审查能力。
+
+功能：
+
+- RuleEngine集成
+- SpringAI集成
+- ReviewAgent
+
+输出：
+
+ReviewAgentResult
+
+状态：
+
+[ ] Todo
+
+---
+
+## Task-34 Fix Agent
+
+目标：
+
+封装自动修复能力。
+
+功能：
+
+- AutoFixService集成
+- PatchEngine集成
+- FixAgent
+
+输出：
+
+FixAgentResult
+
+状态：
+
+[ ] Todo
+
+---
+
+## Task-35 Summary Agent
+
+目标：
+
+汇总多个Agent结果。
+
+功能：
+
+- SummaryAgent
+- FinalReviewReport
+
+输出：
+
+统一分析报告
+
+状态：
+
+[ ] Todo

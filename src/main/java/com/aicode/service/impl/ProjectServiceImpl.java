@@ -36,7 +36,7 @@ public class ProjectServiceImpl implements ProjectService {
                 .name(request.getName())
                 .description(request.getDescription())
                 .gitUrl(request.getGitUrl())
-                .branchName(request.getBranchName() != null ? request.getBranchName() : "main")
+                .branchName(request.getBranchName())
                 .creatorId(SecurityUtils.getCurrentUserId())
                 .status(1)
                 .createTime(LocalDateTime.now())
