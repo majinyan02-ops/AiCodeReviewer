@@ -29,7 +29,11 @@ public enum ResultCode {
     PROJECT_NOT_FOUND(2001, "项目不存在"),
     TASK_NOT_FOUND(3001, "审查任务不存在"),
     RULE_NOT_FOUND(4001, "规则不存在"),
-    REPORT_NOT_FOUND(5001, "报告不存在");
+    REPORT_NOT_FOUND(5001, "报告不存在"),
+
+    // Agent 错误 6xxx
+    AGENT_NOT_FOUND(6001, "Agent不存在"),
+    AGENT_EXECUTION_FAILED(6002, "Agent执行失败");
 
     private final int code;
     private final String message;
