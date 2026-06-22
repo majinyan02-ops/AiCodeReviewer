@@ -62,4 +62,36 @@ public class AnalysisCacheService {
     private String buildKey(Long projectId, String contentHash) {
         return KEY_PREFIX + projectId + ":" + contentHash;
     }
+
+    // ========== Review Agent 缓存 ==========
+
+    private static final String REVIEW_KEY_PREFIX = "agent:review:";
+    private static final Duration REVIEW_TTL = Duration.ofHours(24);
+
+    /**
+     * 获取 ReviewAgent 缓存结果
+     */
+    public Object getReviewResult(String projectId) {
+        if (projectId == null || projectId.isEmpty()) return null;
+        String key = REVIEW_KEY_PREFIX + projectId;
+        return redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 缓存 ReviewAgent 结果
+     */
+    public void putReviewResult(String projectId, Object result) {
+        if (projectId == null || projectId.isEmpty() || result == null) return;
+        String key = REVIEW_KEY_PREFIX + projectId;
+        redisTemplate.opsForValue().set(key, result, REVIEW_TTL);
+    }
+
+    /**
+     * 清除 ReviewAgent 缓存
+     */
+    public void clearReviewResult(String projectId) {
+        if (projectId == null || projectId.isEmpty()) return;
+        String key = REVIEW_KEY_PREFIX + projectId;
+        redisTemplate.delete(key);
+    }
 }

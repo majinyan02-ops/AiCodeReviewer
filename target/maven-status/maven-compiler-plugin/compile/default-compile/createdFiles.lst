@@ -45,6 +45,7 @@ com\aicode\common\Result.class
 com\aicode\mapper\ReviewTaskMapper.class
 com\aicode\entity\Project.class
 com\aicode\security\utils\JwtUtils.class
+com\aicode\agent\review\model\ReviewAgentResult.class
 com\aicode\ai\service\impl\AiReviewServiceImpl.class
 com\aicode\analysis\model\ServiceMetadata.class
 com\aicode\parser\model\AnnotationField$AnnotationFieldBuilder.class
@@ -76,6 +77,7 @@ com\aicode\patch\model\PatchResult$PatchResultBuilder.class
 com\aicode\report\model\IssueSummary.class
 com\aicode\patch\service\PatchService.class
 com\aicode\ai\model\AiReviewRequest$AiReviewRequestBuilder.class
+com\aicode\agent\review\parser\ReviewResponseParser.class
 com\aicode\report\service\ReportService.class
 com\aicode\service\impl\AuthServiceImpl.class
 com\aicode\parser\model\ScannedMethod$ScannedMethodBuilder.class
@@ -89,6 +91,7 @@ com\aicode\dto\GitStatusResponse.class
 com\aicode\entity\ReviewTask$ReviewTaskBuilder.class
 com\aicode\dto\GitSyncResponse.class
 com\aicode\agent\registry\AgentRegistry.class
+com\aicode\agent\review\model\ReviewAgentResult$ReviewAgentResultBuilder.class
 com\aicode\cache\controller\CacheController.class
 com\aicode\security\handler\AccessDeniedHandlerImpl.class
 com\aicode\parser\model\ScannedClass.class
@@ -107,7 +110,9 @@ com\aicode\report\model\IssueSummary$IssueSummaryBuilder.class
 com\aicode\analysis\service\ControllerAnalysisService.class
 com\aicode\rule\model\RuleResult.class
 com\aicode\analysis\model\ServiceMethodInfo$ServiceMethodInfoBuilder.class
+com\aicode\agent\review\ReviewAgent.class
 com\aicode\patch\controller\PatchController.class
+com\aicode\agent\review\parser\ReviewResponseParser$ReviewAnalysis.class
 com\aicode\entity\ReviewResult$ReviewResultBuilder.class
 com\aicode\parser\model\ScanContext.class
 com\aicode\mapper\UserMapper.class
@@ -134,9 +139,11 @@ com\aicode\patch\service\impl\PatchServiceImpl.class
 com\aicode\agent\controller\AgentController.class
 com\aicode\fix\model\FixSuggestion.class
 com\aicode\rule\RuleChecker.class
+com\aicode\agent\review\parser\ReviewResponseParser$ReviewAnalysis$ReviewAnalysisBuilder.class
 com\aicode\config\MyBatisPlusConfig.class
 com\aicode\fix\service\FixCacheService.class
 com\aicode\entity\ReviewReport$ReviewReportBuilder.class
+com\aicode\agent\review\prompt\ReviewPromptBuilder.class
 com\aicode\controller\GitController.class
 com\aicode\rule\impl\Rule001MissingTransactional.class
 com\aicode\analysis\model\CallNode$CallNodeBuilder.class
@@ -144,6 +151,7 @@ com\aicode\mapper\RuleConfigMapper.class
 com\aicode\parser\model\ScannedClass$ScannedClassBuilder.class
 com\aicode\report\model\ReportResponse.class
 com\aicode\security\utils\SecurityUtils.class
+com\aicode\agent\review\controller\ReviewAgentController.class
 com\aicode\mapper\ReviewResultMapper.class
 com\aicode\controller\ProjectController.class
 com\aicode\patch\validator\PatchValidator.class

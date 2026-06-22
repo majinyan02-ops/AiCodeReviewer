@@ -53,4 +53,24 @@ public class RuleEngine {
                 projectId, ruleCheckers.size(), allResults.size());
         return allResults;
     }
+
+    /**
+     * 对已解析的 ProjectCodeModel + CallGraph 执行所有规则检测
+     *
+     * @param model     已解析的项目代码模型
+     * @param callGraph 已构建的调用图
+     * @return 所有规则的检测结果
+     */
+    public List<RuleResult> analyze(ProjectCodeModel model, CallGraph callGraph) {
+        List<RuleResult> allResults = new ArrayList<>();
+        for (RuleChecker checker : ruleCheckers) {
+            log.info("执行规则: {} - {}", checker.getRuleId(), checker.getRuleName());
+            List<RuleResult> results = checker.check(model, callGraph);
+            allResults.addAll(results);
+        }
+
+        log.info("规则引擎执行完成: 规则数={}, 发现问题数={}",
+                ruleCheckers.size(), allResults.size());
+        return allResults;
+    }
 }
