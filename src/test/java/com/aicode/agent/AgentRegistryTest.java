@@ -16,10 +16,11 @@ class AgentRegistryTest {
     private AgentRegistry agentRegistry;
 
     @Test
-    void shouldRegisterExistingAgents() {
-        assertThat(agentRegistry.getAllAgents()).isNotEmpty();
+    void shouldRegisterAllAgents() {
+        assertThat(agentRegistry.getAllAgents()).hasSizeGreaterThanOrEqualTo(3);
         assertThat(agentRegistry.contains(AgentType.REVIEW)).isTrue();
         assertThat(agentRegistry.contains(AgentType.FIX)).isTrue();
+        assertThat(agentRegistry.contains(AgentType.SUMMARY)).isTrue();
     }
 
     @Test
@@ -30,12 +31,9 @@ class AgentRegistryTest {
     }
 
     @Test
-    void shouldReturnNullForUnregisteredType() {
-        assertThat(agentRegistry.getAgent(AgentType.SUMMARY)).isNull();
-    }
-
-    @Test
-    void shouldReturnFalseForUnregisteredType() {
-        assertThat(agentRegistry.contains(AgentType.SUMMARY)).isFalse();
+    void shouldGetSummaryAgent() {
+        Agent agent = agentRegistry.getAgent(AgentType.SUMMARY);
+        assertThat(agent).isNotNull();
+        assertThat(agent.getType()).isEqualTo(AgentType.SUMMARY);
     }
 }

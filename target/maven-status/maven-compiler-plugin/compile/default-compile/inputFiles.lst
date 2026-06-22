@@ -17,6 +17,11 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\review\model\ReviewAgen
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\review\parser\ReviewResponseParser.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\review\prompt\ReviewPromptBuilder.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\review\ReviewAgent.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\summary\controller\SummaryAgentController.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\summary\model\ProjectHealthReport.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\summary\model\SummaryAgentResult.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\summary\model\SummaryStatistics.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\summary\SummaryAgent.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\model\AiIssueAnalysis.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\model\AiReviewRequest.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\ai\model\AiReviewResult.java

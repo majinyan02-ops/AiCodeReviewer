@@ -18,25 +18,6 @@ class AgentOrchestratorTest {
     private AgentOrchestrator agentOrchestrator;
 
     @Test
-    void shouldReturnFailureWhenAgentNotFound() {
-        AgentContext context = AgentContext.builder().projectId("1").build();
-        AgentResult result = agentOrchestrator.executeAgent(AgentType.SUMMARY, context);
-
-        assertThat(result.isSuccess()).isFalse();
-        assertThat(result.getMessage()).contains("Agent not found");
-    }
-
-    @Test
-    void shouldReturnFailureForBatchWhenAgentNotFound() {
-        AgentContext context = AgentContext.builder().projectId("1").build();
-        List<AgentResult> results = agentOrchestrator.executeAgents(
-                List.of(AgentType.SUMMARY), context, AgentExecutionMode.SEQUENTIAL);
-
-        assertThat(results).hasSize(1);
-        assertThat(results.get(0).isSuccess()).isFalse();
-    }
-
-    @Test
     void shouldThrowExceptionForParallelMode() {
         AgentContext context = AgentContext.builder().projectId("1").build();
 
@@ -44,5 +25,17 @@ class AgentOrchestratorTest {
                 agentOrchestrator.executeAgents(
                         List.of(AgentType.REVIEW), context, AgentExecutionMode.PARALLEL))
                 .isInstanceOf(UnsupportedOperationException.class);
+    }
+
+    @Test
+    void shouldExecuteSequentialBatch() {
+        AgentContext context = AgentContext.builder()
+                .projectId("1")
+                .build();
+
+        List<AgentResult> results = agentOrchestrator.executeAgents(
+                List.of(AgentType.SUMMARY), context, AgentExecutionMode.SEQUENTIAL);
+
+        assertThat(results).hasSize(1);
     }
 }

@@ -126,4 +126,36 @@ public class AnalysisCacheService {
         String key = FIX_KEY_PREFIX + projectId;
         redisTemplate.delete(key);
     }
+
+    // ========== Summary Agent 缓存 ==========
+
+    private static final String SUMMARY_KEY_PREFIX = "agent:summary:";
+    private static final Duration SUMMARY_TTL = Duration.ofHours(24);
+
+    /**
+     * 获取 SummaryAgent 缓存结果
+     */
+    public Object getSummaryResult(String projectId) {
+        if (projectId == null || projectId.isEmpty()) return null;
+        String key = SUMMARY_KEY_PREFIX + projectId;
+        return redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 缓存 SummaryAgent 结果
+     */
+    public void putSummaryResult(String projectId, Object result) {
+        if (projectId == null || projectId.isEmpty() || result == null) return;
+        String key = SUMMARY_KEY_PREFIX + projectId;
+        redisTemplate.opsForValue().set(key, result, SUMMARY_TTL);
+    }
+
+    /**
+     * 清除 SummaryAgent 缓存
+     */
+    public void clearSummaryResult(String projectId) {
+        if (projectId == null || projectId.isEmpty()) return;
+        String key = SUMMARY_KEY_PREFIX + projectId;
+        redisTemplate.delete(key);
+    }
 }
