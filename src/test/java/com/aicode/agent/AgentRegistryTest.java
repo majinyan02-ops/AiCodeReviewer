@@ -7,7 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -17,17 +16,26 @@ class AgentRegistryTest {
     private AgentRegistry agentRegistry;
 
     @Test
-    void shouldRegisterNoAgentsWhenNoneExist() {
-        assertThat(agentRegistry.getAllAgents()).isEmpty();
+    void shouldRegisterExistingAgents() {
+        assertThat(agentRegistry.getAllAgents()).isNotEmpty();
+        assertThat(agentRegistry.contains(AgentType.REVIEW)).isTrue();
+        assertThat(agentRegistry.contains(AgentType.FIX)).isTrue();
+    }
+
+    @Test
+    void shouldGetRegisteredAgent() {
+        Agent agent = agentRegistry.getAgent(AgentType.REVIEW);
+        assertThat(agent).isNotNull();
+        assertThat(agent.getType()).isEqualTo(AgentType.REVIEW);
     }
 
     @Test
     void shouldReturnNullForUnregisteredType() {
-        assertThat(agentRegistry.getAgent(AgentType.REVIEW)).isNull();
+        assertThat(agentRegistry.getAgent(AgentType.SUMMARY)).isNull();
     }
 
     @Test
     void shouldReturnFalseForUnregisteredType() {
-        assertThat(agentRegistry.contains(AgentType.REVIEW)).isFalse();
+        assertThat(agentRegistry.contains(AgentType.SUMMARY)).isFalse();
     }
 }

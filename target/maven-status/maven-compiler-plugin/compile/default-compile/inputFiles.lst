@@ -6,6 +6,11 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\AgentResult.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\AgentType.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\controller\AgentController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\dto\AgentExecuteRequest.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\fix\controller\FixAgentController.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\fix\FixAgent.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\fix\model\FixAgentResult.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\fix\model\FixItem.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\fix\model\FixStatistics.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\registry\AgentRegistry.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\review\controller\ReviewAgentController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\agent\review\model\ReviewAgentResult.java

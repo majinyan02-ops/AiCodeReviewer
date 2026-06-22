@@ -94,4 +94,36 @@ public class AnalysisCacheService {
         String key = REVIEW_KEY_PREFIX + projectId;
         redisTemplate.delete(key);
     }
+
+    // ========== Fix Agent 缓存 ==========
+
+    private static final String FIX_KEY_PREFIX = "agent:fix:";
+    private static final Duration FIX_TTL = Duration.ofHours(24);
+
+    /**
+     * 获取 FixAgent 缓存结果
+     */
+    public Object getFixResult(String projectId) {
+        if (projectId == null || projectId.isEmpty()) return null;
+        String key = FIX_KEY_PREFIX + projectId;
+        return redisTemplate.opsForValue().get(key);
+    }
+
+    /**
+     * 缓存 FixAgent 结果
+     */
+    public void putFixResult(String projectId, Object result) {
+        if (projectId == null || projectId.isEmpty() || result == null) return;
+        String key = FIX_KEY_PREFIX + projectId;
+        redisTemplate.opsForValue().set(key, result, FIX_TTL);
+    }
+
+    /**
+     * 清除 FixAgent 缓存
+     */
+    public void clearFixResult(String projectId) {
+        if (projectId == null || projectId.isEmpty()) return;
+        String key = FIX_KEY_PREFIX + projectId;
+        redisTemplate.delete(key);
+    }
 }

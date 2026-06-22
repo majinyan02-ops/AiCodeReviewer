@@ -1,6 +1,5 @@
 package com.aicode.agent;
 
-import com.aicode.agent.registry.AgentRegistry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +20,7 @@ class AgentOrchestratorTest {
     @Test
     void shouldReturnFailureWhenAgentNotFound() {
         AgentContext context = AgentContext.builder().projectId("1").build();
-        AgentResult result = agentOrchestrator.executeAgent(AgentType.REVIEW, context);
+        AgentResult result = agentOrchestrator.executeAgent(AgentType.SUMMARY, context);
 
         assertThat(result.isSuccess()).isFalse();
         assertThat(result.getMessage()).contains("Agent not found");
@@ -31,7 +30,7 @@ class AgentOrchestratorTest {
     void shouldReturnFailureForBatchWhenAgentNotFound() {
         AgentContext context = AgentContext.builder().projectId("1").build();
         List<AgentResult> results = agentOrchestrator.executeAgents(
-                List.of(AgentType.REVIEW), context, AgentExecutionMode.SEQUENTIAL);
+                List.of(AgentType.SUMMARY), context, AgentExecutionMode.SEQUENTIAL);
 
         assertThat(results).hasSize(1);
         assertThat(results.get(0).isSuccess()).isFalse();
