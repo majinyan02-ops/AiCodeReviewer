@@ -13,6 +13,7 @@ import com.aicode.fix.model.FixSuggestion;
 import com.aicode.fix.service.AutoFixService;
 import com.aicode.patch.model.PatchResult;
 import com.aicode.patch.service.PatchService;
+import com.aicode.patch.source.SourceCodeReader;
 import com.aicode.rule.model.RuleResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +40,7 @@ public class FixAgent implements Agent {
     private final AutoFixService autoFixService;
     private final PatchService patchService;
     private final AnalysisCacheService cacheService;
+    private final SourceCodeReader sourceCodeReader;
 
     @Override
     public AgentType getType() {
@@ -76,6 +78,15 @@ public class FixAgent implements Agent {
 
         for (RuleResult ruleResult : ruleResults) {
             if (ruleResult.isPassed()) continue;
+
+            // 填充源码片段
+            if (ruleResult.getSourceCode() == null || ruleResult.getSourceCode().isEmpty()) {
+                String sourceCode = sourceCodeReader.readMethodSource(
+                        ruleResult.getFilePath(),
+                        ruleResult.getMethodName(),
+                        ruleResult.getLineNumber());
+                ruleResult.setSourceCode(sourceCode);
+            }
 
             long aiStart = System.currentTimeMillis();
             FixItem item = processRuleResult(ruleResult);

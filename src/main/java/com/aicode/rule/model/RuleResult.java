@@ -52,4 +52,7 @@ public class RuleResult {
 
     /** 方法体内容哈希，用于 AI 分析缓存命中判断 */
     private String contentHash;
+
+    /** 违规代码片段源码 */
+    private String sourceCode;
 }

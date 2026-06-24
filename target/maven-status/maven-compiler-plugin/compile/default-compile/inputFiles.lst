@@ -105,6 +105,7 @@ D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\patch\model\PatchResult.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\patch\service\impl\PatchServiceImpl.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\patch\service\PatchCacheService.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\patch\service\PatchService.java
+D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\patch\source\SourceCodeReader.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\patch\validator\PatchValidator.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\controller\ReviewReportController.java
 D:\Desktop\AiCodeReviewer\src\main\java\com\aicode\report\dto\ReportProgress.java

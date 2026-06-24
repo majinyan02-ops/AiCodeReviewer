@@ -136,3 +136,90 @@ export type CachedReport = {
   report: ReviewReport;
   aiAnalyses: AiIssueAnalysis[];
 };
+
+// ========== Agent 类型 ==========
+
+export type AgentResult<T = unknown> = {
+  agentType: 'REVIEW' | 'FIX' | 'SUMMARY';
+  success: boolean;
+  message: string;
+  startTime: string;
+  endTime: string;
+  duration: number;
+  payload: T;
+};
+
+export type ReviewAgentResult = {
+  totalRules: number;
+  errorCount: number;
+  warningCount: number;
+  infoCount: number;
+  overallScore: number;
+  riskLevel: string;
+  summary: string;
+  ruleResults: RuleResult[];
+  aiAnalysisDuration: number;
+  generatedTime: string;
+};
+
+export type FixItem = {
+  ruleId: string;
+  className: string;
+  methodName: string;
+  severity: Severity;
+  issue: string;
+  suggestion: string;
+  patchContent: string;
+  patchGenerated: boolean;
+  generateDuration: number;
+};
+
+export type FixStatistics = {
+  totalIssues: number;
+  fixedIssues: number;
+  failedIssues: number;
+  successRate: number;
+  totalDuration: number;
+  totalAiDuration: number;
+};
+
+export type FixAgentResult = {
+  totalIssues: number;
+  fixedIssues: number;
+  failedIssues: number;
+  fixItems: FixItem[];
+  statistics: FixStatistics;
+  generatedTime: string;
+};
+
+export type SummaryStatistics = {
+  totalIssues: number;
+  errorCount: number;
+  warningCount: number;
+  infoCount: number;
+  fixedIssues: number;
+  failedIssues: number;
+  fixSuccessRate: number;
+  reviewAiDuration: number;
+  fixAiDuration: number;
+  totalAiDuration: number;
+};
+
+export type ProjectHealthReport = {
+  healthLevel: string;
+  healthScore: number;
+  overallStatus: string;
+  summary: string;
+  strengths: string[];
+  weaknesses: string[];
+  recommendations: string[];
+  topProblems: string[];
+};
+
+export type SummaryAgentResult = {
+  statistics: SummaryStatistics;
+  healthReport: ProjectHealthReport;
+  reviewResult: ReviewAgentResult | null;
+  fixResult: FixAgentResult | null;
+  generatedTime: string;
+};

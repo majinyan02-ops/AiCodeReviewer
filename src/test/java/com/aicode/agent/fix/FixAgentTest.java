@@ -72,12 +72,12 @@ class FixAgentTest {
                         .passed(false)
                         .build(),
                 RuleResult.builder()
-                        .ruleId("RULE-004")
-                        .ruleName("System.out.println")
-                        .severity("WARNING")
+                        .ruleId("RULE-003")
+                        .ruleName("Controller Direct Mapper")
+                        .severity("ERROR")
                         .className("DemoController")
                         .methodName("hello")
-                        .message("存在System.out.println调试输出")
+                        .message("Controller直接调用Mapper")
                         .passed(false)
                         .build()
         );
@@ -169,7 +169,7 @@ class FixAgentTest {
     }
 
     @Test
-    void shouldFilterPassedRules() {
+    void shouldFilterPassedAndNonErrorRules() {
         when(cacheService.getFixResult("test-project")).thenReturn(null);
 
         List<RuleResult> ruleResults = List.of(
@@ -180,6 +180,14 @@ class FixAgentTest {
                         .methodName("createUser")
                         .message("问题")
                         .passed(true)
+                        .build(),
+                RuleResult.builder()
+                        .ruleId("RULE-002")
+                        .severity("WARNING")
+                        .className("DemoController")
+                        .methodName("hello")
+                        .message("警告")
+                        .passed(false)
                         .build()
         );
         ReviewAgentResult reviewResult = createReviewResult(ruleResults);

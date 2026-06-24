@@ -15,6 +15,7 @@ com\aicode\fix\parser\FixResponseParser.class
 com\aicode\analysis\model\EndpointInfo.class
 com\aicode\parser\model\ScanContext$ScanContextBuilder.class
 com\aicode\agent\AgentExecutionMode.class
+com\aicode\patch\source\SourceCodeReader.class
 com\aicode\ai\service\impl\AiAnalysisServiceImpl.class
 com\aicode\entity\ReviewResult.class
 com\aicode\config\CacheConfig.class

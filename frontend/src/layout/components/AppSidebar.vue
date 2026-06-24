@@ -23,6 +23,10 @@
         <el-icon><Search /></el-icon>
         <span>代码审查</span>
       </el-menu-item>
+      <el-menu-item index="/app/agent">
+        <el-icon><Monitor /></el-icon>
+        <span>Agent 分析</span>
+      </el-menu-item>
       <el-menu-item index="/app/report">
         <el-icon><Document /></el-icon>
         <span>报告中心</span>
@@ -32,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { DataBoard, Document, Folder, Search } from '@element-plus/icons-vue';
+import { DataBoard, Document, Folder, Monitor, Search } from '@element-plus/icons-vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
