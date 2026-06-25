@@ -14,9 +14,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +32,9 @@ import java.time.LocalDateTime;
 public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectMapper projectMapper;
+
+    @Value("${git.storage.path:./git-repos}")
+    private String gitStoragePath;
 
     @Override
     @Transactional
@@ -78,6 +85,18 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         projectMapper.deleteById(id);
+
+        // 清理本地 git 仓库
+        Path repoDir = Path.of(gitStoragePath, String.valueOf(id));
+        if (Files.exists(repoDir)) {
+            try {
+                deleteDirectory(repoDir);
+                log.info("已清理 git 仓库: {}", repoDir);
+            } catch (IOException e) {
+                log.warn("清理 git 仓库失败: {}", repoDir, e);
+            }
+        }
+
         log.info("项目删除成功: id={}", id);
     }
 
@@ -116,5 +135,16 @@ public class ProjectServiceImpl implements ProjectService {
                 .status(project.getStatus())
                 .createTime(project.getCreateTime())
                 .build();
+    }
+
+    private void deleteDirectory(Path dir) throws IOException {
+        if (Files.isDirectory(dir)) {
+            try (var stream = Files.list(dir)) {
+                for (Path child : stream.toList()) {
+                    deleteDirectory(child);
+                }
+            }
+        }
+        Files.delete(dir);
     }
 }

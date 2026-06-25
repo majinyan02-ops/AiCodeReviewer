@@ -223,3 +223,92 @@ export type SummaryAgentResult = {
   fixResult: FixAgentResult | null;
   generatedTime: string;
 };
+
+// ========== Phase-9 企业级功能 ==========
+
+export type AnalysisRecord = {
+  id: number;
+  projectId: number;
+  projectName?: string;
+  taskId?: number;
+  overallScore?: number;
+  riskLevel?: string;
+  healthLevel?: string;
+  healthScore?: number;
+  totalIssues: number;
+  errorCount: number;
+  warningCount: number;
+  infoCount: number;
+  fixedIssues: number;
+  fixSuccessRate: number;
+  aiDuration: number;
+  status: string;
+  markdownPath?: string;
+  pdfPath?: string;
+  createTime: string;
+};
+
+export type AnalysisRecordDetail = AnalysisRecord & {
+  errorMessage?: string;
+  summaryStatistics?: SummaryStatistics;
+  healthReport?: ProjectHealthReport;
+};
+
+export type TrendData = {
+  projectId: number;
+  projectName: string;
+  points: TrendPoint[];
+};
+
+export type TrendPoint = {
+  date: string;
+  overallScore?: number;
+  healthScore?: number;
+  totalIssues: number;
+  errorCount: number;
+  warningCount: number;
+  infoCount: number;
+  fixedIssues: number;
+  fixSuccessRate: number;
+};
+
+export type AnalysisRecordQuery = {
+  projectId?: number;
+  keyword?: string;
+  riskLevel?: string;
+  healthLevel?: string;
+  startDate?: string;
+  endDate?: string;
+  page?: number;
+  size?: number;
+};
+
+export type ProjectTrendSummary = {
+  projectId: number;
+  projectName: string;
+  latestScore?: number;
+  latestHealthScore?: number;
+  scoreChange?: number;
+  totalRecords: number;
+};
+
+export type StatisticsOverview = {
+  totalProjects: number;
+  totalRecords: number;
+  totalIssues: number;
+  totalFixed: number;
+  avgHealthScore: number;
+  avgFixRate: number;
+  projectHealthItems: ProjectHealthItem[];
+};
+
+export type ProjectHealthItem = {
+  projectId: number;
+  projectName: string;
+  healthScore?: number;
+  healthLevel?: string;
+  totalRecords: number;
+  totalIssues: number;
+  fixedIssues: number;
+  fixRate?: number;
+};

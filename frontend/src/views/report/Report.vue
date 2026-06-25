@@ -133,9 +133,9 @@ import { ElMessage, ElMessageBox } from 'element-plus';
 import { useRoute, useRouter } from 'vue-router';
 import { downloadPdfApi } from '@/api/report';
 import { getReportProgressByProjectApi } from '@/api/review';
+import { getRecordPage, deleteRecord } from '@/api/analysis-record';
 import { downloadBlob } from '@/utils/download';
-import { getCachedReports, removeCachedReport, saveCachedReport } from '@/utils/reportCache';
-import type { CachedReport, ReportTaskProgress, ReviewReport } from '@/types/api';
+import type { AnalysisRecord, CachedReport, ReportTaskProgress, ReviewReport } from '@/types/api';
 
 const POLL_INTERVAL = 500;
 
@@ -200,8 +200,32 @@ const clearPollTimer = () => {
   }
 };
 
-const loadReports = () => {
-  reports.value = getCachedReports();
+const loadReports = async () => {
+  try {
+    const res = await getRecordPage({ page: 1, size: 100 });
+    reports.value = (res.records ?? []).map((r: any) => ({
+      id: `agent-${r.id}`,
+      projectId: r.projectId,
+      taskId: String(r.taskId ?? ''),
+      projectName: r.projectName || `项目${r.projectId}`,
+      createdAt: r.createTime,
+      report: {
+        projectName: r.projectName || `项目${r.projectId}`,
+        scanTime: r.createTime,
+        totalRules: r.totalIssues,
+        passedRules: r.totalIssues - r.errorCount - r.warningCount - r.infoCount,
+        failedRules: r.errorCount + r.warningCount + r.infoCount,
+        errorCount: r.errorCount,
+        warningCount: r.warningCount,
+        infoCount: r.infoCount,
+        issues: r.issues ?? [],
+        overallSummary: r.healthLevel ? `健康等级: ${r.healthLevel}, 评分: ${r.healthScore}` : '',
+      },
+      aiAnalyses: [],
+    }));
+  } catch {
+    reports.value = [];
+  }
 };
 
 const applyReportProgress = async (progress: ReportTaskProgress) => {
@@ -209,13 +233,8 @@ const applyReportProgress = async (progress: ReportTaskProgress) => {
 
   if (progress.status === 'SUCCESS') {
     clearPollTimer();
-
-    if (routeProjectId.value && progress.report) {
-      currentReport.value = saveCachedReport(routeProjectId.value, progress.taskId, progress.report);
-      loadReports();
-      ElMessage.success('报告生成完成');
-    }
-
+    loadReports();
+    ElMessage.success('报告生成完成');
     return;
   }
 
@@ -268,7 +287,11 @@ const downloadPdf = async (report: CachedReport) => {
 
 const removeReport = async (report: CachedReport) => {
   await ElMessageBox.confirm(`确认删除报告「${report.projectName}」？`, '删除确认', { type: 'warning' });
-  removeCachedReport(report.id);
+  // 从 ID 中提取数据库记录 ID
+  const recordId = Number(report.id.replace('agent-', ''));
+  if (recordId) {
+    await deleteRecord(recordId);
+  }
   loadReports();
   ElMessage.success('报告已删除');
 };

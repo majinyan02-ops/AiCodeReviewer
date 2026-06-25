@@ -32,12 +32,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: '项目管理' },
       },
       {
-        path: 'review',
-        name: 'Review',
-        component: () => import('@/views/review/Review.vue'),
-        meta: { title: '代码审查' },
-      },
-      {
         path: 'agent',
         name: 'Agent',
         component: () => import('@/views/agent/Agent.vue'),
@@ -54,6 +48,24 @@ const routes: RouteRecordRaw[] = [
         name: 'ReportProject',
         component: () => import('@/views/report/Report.vue'),
         meta: { title: '报告中心' },
+      },
+      {
+        path: 'history',
+        name: 'History',
+        component: () => import('@/views/history/History.vue'),
+        meta: { title: '历史记录' },
+      },
+      {
+        path: 'history/:id',
+        name: 'HistoryDetail',
+        component: () => import('@/views/history/HistoryDetail.vue'),
+        meta: { title: '记录详情' },
+      },
+      {
+        path: 'trend',
+        name: 'Trend',
+        component: () => import('@/views/trend/Trend.vue'),
+        meta: { title: '趋势统计' },
       },
     ],
   },

@@ -9,3 +9,19 @@ export const executeFixAgentApi = (projectId: string) =>
 
 export const executeSummaryAgentApi = (projectId: string) =>
   request.post('/agent/summary', { projectId }) as Promise<AgentResult<SummaryAgentResult>>;
+
+export function downloadMarkdownReport(projectId: string, projectName?: string) {
+  const params = projectName ? { projectName } : {};
+  return request.get(`/agent/report/markdown/${projectId}`, {
+    params,
+    responseType: 'blob',
+  }) as Promise<Blob>;
+}
+
+export function downloadPdfReport(projectId: string, projectName?: string) {
+  const params = projectName ? { projectName } : {};
+  return request.get(`/agent/report/pdf/${projectId}`, {
+    params,
+    responseType: 'blob',
+  }) as Promise<Blob>;
+}

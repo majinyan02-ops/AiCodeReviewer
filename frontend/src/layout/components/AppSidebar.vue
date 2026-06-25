@@ -19,10 +19,6 @@
         <el-icon><Folder /></el-icon>
         <span>项目管理</span>
       </el-menu-item>
-      <el-menu-item index="/app/review">
-        <el-icon><Search /></el-icon>
-        <span>代码审查</span>
-      </el-menu-item>
       <el-menu-item index="/app/agent">
         <el-icon><Monitor /></el-icon>
         <span>Agent 分析</span>
@@ -31,12 +27,20 @@
         <el-icon><Document /></el-icon>
         <span>报告中心</span>
       </el-menu-item>
+      <el-menu-item index="/app/history">
+        <el-icon><Clock /></el-icon>
+        <span>历史记录</span>
+      </el-menu-item>
+      <el-menu-item index="/app/trend">
+        <el-icon><TrendCharts /></el-icon>
+        <span>趋势统计</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script setup lang="ts">
-import { DataBoard, Document, Folder, Monitor, Search } from '@element-plus/icons-vue';
+import { DataBoard, Document, Folder, Monitor, Clock, TrendCharts } from '@element-plus/icons-vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();

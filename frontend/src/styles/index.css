@@ -39,25 +39,34 @@ html.dark body {
 }
 
 .app-layout__aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
   color: #ffffff;
   background: linear-gradient(180deg, #111827 0%, #172033 100%);
   box-shadow: 8px 0 24px rgb(15 23 42 / 8%);
+  overflow-y: auto;
 }
 
 .app-layout__header {
   height: 72px;
+  margin-left: 232px;
   padding: 0 28px;
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
 }
 
 .app-layout__main {
+  margin-left: 232px;
   padding: 28px;
   background: #f4f7fb;
 }
 
 .app-layout__footer {
   height: 44px;
+  margin-left: 232px;
   color: #94a3b8;
   text-align: center;
   background: #f4f7fb;
